@@ -1,0 +1,16 @@
+/* Additional styles for the admin panel */
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .table-responsive table {
+    font-size: 0.8rem;
+  }
+  
+  .table-responsive th,
+  .table-responsive td {
+    padding: 0.5rem;
+  }
+}
