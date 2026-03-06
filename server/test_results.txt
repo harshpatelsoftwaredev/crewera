@@ -1,0 +1,9 @@
+=== media_categories ===
+  ID: 1 | Name: Photo | Extensions: ["jpg","jpeg","png","webp"]
+  ID: 2 | Name: 3D Render | Extensions: ["jpg","jpeg","png","webp"]
+  ID: 3 | Name: Drone Video | Extensions: ["mp4","webm","mov"]
+  ID: 4 | Name: Aerial Shoot | Extensions: ["mp4","webm","mov"]
+  ID: 5 | Name: Sample House Tour | Extensions: ["mp4","webm","mov"]
+  ID: 6 | Name: Floorplan | Extensions: ["pdf","jpg","png"]
+  ID: 7 | Name: Document | Extensions: ["pdf","doc","docx"]
+  ID: 8 | Name: 360 Panorama | Extensions: ["jpg","png","webp"]

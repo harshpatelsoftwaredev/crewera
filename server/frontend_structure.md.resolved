@@ -1,0 +1,566 @@
+# 🎨 Crewera Reality — Frontend File Structure (Next.js + JSX)
+
+> **Next.js 14 (App Router)** · JavaScript/JSX Only · No TypeScript
+
+---
+
+## 📁 Root Structure
+
+```
+D:\CREWERA\frontend\
+├── 📄 package.json
+├── 📄 jsconfig.json                      ← Path aliases (@/components, @/lib)
+├── 📄 next.config.js
+├── 📄 .env.local
+├── 📄 .eslintrc.json
+│
+├── 📁 public/                            ← Static assets
+├── 📁 app/                               ← Next.js App Router (pages)
+├── 📁 components/                        ← Reusable components
+├── 📁 lib/                               ← API calls, utilities, hooks
+└── 📁 styles/                            ← Global CSS
+```
+
+---
+
+## 📁 public/
+
+```
+public/
+├── 📁 images/
+│   ├── logo.svg
+│   ├── logo-white.svg
+│   ├── hero-bg.jpg
+│   ├── placeholder-property.jpg
+│   ├── placeholder-avatar.png
+│   └── 📁 icons/                  # Amenity icons, feature icons
+├── 📁 fonts/                      # Self-hosted fonts (DM Sans, Poppins)
+├── favicon.ico
+├── robots.txt
+└── sitemap.xml
+```
+
+---
+
+## 📁 styles/
+
+```
+styles/
+├── 📄 globals.css                 # CSS reset, variables, typography, dark mode
+├── 📄 animations.css              # Keyframes, transitions, micro-interactions
+├── 📄 map.css                     # Google Map styles (from your existing style.css)
+└── 📄 property-detail.css         # Property detail page styles (from your property.html)
+```
+
+---
+
+## 📁 app/ — Pages & Layouts
+
+### Root Layout & Global Pages
+
+```
+app/
+├── 📄 layout.js                   # Root layout: <html>, fonts, Navbar, Footer, Toaster
+├── 📄 globals.css                 # Imported in layout
+├── 📄 page.js                     # ← HOME PAGE
+├── 📄 not-found.js                # Custom 404
+├── 📄 loading.js                  # Global loading spinner
+├── 📄 error.js                    # Global error boundary
+```
+
+---
+
+### 🏠 HOME PAGE — `app/page.js`
+
+| Section | Description |
+|---------|-------------|
+| **Hero Banner** | Full-width video/image with search overlay (city, type, budget) |
+| **Quick Search Bar** | City, Property Type, BHK, Budget → redirects to `/properties` |
+| **Featured Properties** | Carousel of featured/premium properties |
+| **Property Types** | Visual cards: Apartment, Villa, Commercial, etc. |
+| **Why Choose Us** | Stats counters (properties, happy clients, cities) |
+| **Trending Properties** | Properties sorted by analytics trending_score |
+| **Testimonials Carousel** | Approved testimonials with ratings |
+| **Latest Blog Posts** | 3 recent blog cards |
+| **Newsletter CTA** | Email input for newsletter subscription |
+| **FAQ Accordion** | Top 5 frequently asked questions |
+
+---
+
+### 🔍 PROPERTIES (Map + List) — `app/properties/`
+
+> **This integrates your existing Google Maps Feature v6**
+
+```
+app/properties/
+├── 📄 page.js                     # ← PROPERTIES LISTING PAGE (Map + Sidebar)
+└── 📄 layout.js                   # Properties-specific layout (no footer, full height)
+```
+
+| Section | Functionality (from your v6) |
+|---------|------------------------------|
+| **Filter Bar** | Search, City, Type, Price (popover + slider), Status, Bedrooms (popover), Sort |
+| **Map Tools** | Draw polygon, clear polygon, bounds filter |
+| **Favorites Button** | Heart icon with count badge |
+| **Active Filter Badges** | Removable pills showing applied filters |
+| **Google Map (Left)** | Markers with price labels, marker clustering, info window |
+| **Property Cards (Right Sidebar)** | Infinite scroll cards with image, price, BHK, area |
+| **More Filters Panel** | Slide-in: area, builder, furnished, sample house, virtual tour, sq.ft range |
+| **Compare Bar** | Bottom bar: selected properties for comparison |
+| **Compare Modal** | Side-by-side property comparison table |
+| **Favorites Panel** | Right slide-in panel with saved favorites |
+
+---
+
+### 🏢 PROPERTY DETAIL — `app/properties/[slug]/`
+
+> **This integrates your existing property.html multi-tab design**
+
+```
+app/properties/[slug]/
+└── 📄 page.js                     # ← SINGLE PROPERTY DETAIL PAGE
+```
+
+| Tab | Sections & Functionality |
+|-----|--------------------------|
+| **Overview** | Image gallery (5 photos + labels), video player, about text, key stats (BHK, area, price, status, RERA), seller card with rating |
+| **Floor Plans** | BHK tabs → variant cards (carpet, SBA, price/sqft, units, lifts, parking, balconies) with floorplan images |
+| **Amenities** | Grid of amenity icons grouped by category |
+| **Location** | Google Map with marker, nearby places (hospital, school, metro, airport), street view |
+| **Specifications** | Accordion: Electrification, Flooring, Toilets, Windows, Doors, Kitchen, Walls |
+| **Price Trends** | Chart.js line chart of price history over time |
+| **Reviews** | User reviews with multi-star ratings (overall, construction, location, amenities, value) |
+| **Similar Projects** | Horizontal carousel of similar property cards |
+| **Inquiry Sidebar** | Sticky form: name, email, phone, message → inquiry API |
+| **Share/Favorite** | Share buttons (WhatsApp, copy link), favorite toggle |
+
+---
+
+### 📝 AUTH PAGES — `app/(auth)/`
+
+```
+app/(auth)/
+├── 📄 layout.js                   # Auth layout (centered card, no navbar)
+├── login/
+│   └── 📄 page.js                 # Login form (email, password, remember me)
+├── register/
+│   └── 📄 page.js                 # Registration form (name, email, phone, password)
+├── forgot-password/
+│   └── 📄 page.js                 # Forgot password (email input)
+├── reset-password/
+│   └── 📄 page.js                 # Reset password (new password + confirm)
+└── verify-email/
+    └── 📄 page.js                 # Email verification status page
+```
+
+---
+
+### 👤 USER DASHBOARD — `app/(user)/`
+
+```
+app/(user)/
+├── 📄 layout.js                   # User layout (sidebar nav + content)
+│
+├── dashboard/
+│   └── 📄 page.js                 # User overview: recent activity, active inquiries, fav count
+│
+├── profile/
+│   └── 📄 page.js                 # Edit Profile form (16 fields: name, bio, city, socials)
+│
+├── preferences/
+│   └── 📄 page.js                 # Settings: notifications, privacy, display toggles
+│
+├── favorites/
+│   └── 📄 page.js                 # Grid of favorited properties with remove button
+│
+├── comparisons/
+│   └── 📄 page.js                 # Saved comparison lists
+│
+├── inquiries/
+│   └── 📄 page.js                 # My inquiries list with status & admin response
+│
+├── reviews/
+│   └── 📄 page.js                 # My submitted reviews with edit/delete
+│
+├── property-requests/
+│   ├── 📄 page.js                 # List of my property requests + status tracker
+│   ├── new/
+│   │   └── 📄 page.js             # ← SUBMIT REQUEST (5-step wizard, ROI compulsory)
+│   └── [id]/
+│       ├── 📄 page.js             # Request detail + status
+│       └── complete/
+│           └── 📄 page.js         # ← POST-APPROVAL COMPLETION FORM (8 sections)
+│
+├── saved-searches/
+│   └── 📄 page.js                 # Saved searches with alert toggles
+│
+├── notifications/
+│   └── 📄 page.js                 # Notifications list with mark read/delete
+│
+└── change-password/
+    └── 📄 page.js                 # Change password form
+```
+
+---
+
+### 📰 BLOG — `app/blog/`
+
+```
+app/blog/
+├── 📄 page.js                     # Blog listing: featured post hero + grid + category filter
+├── categories/
+│   └── [slug]/
+│       └── 📄 page.js             # Posts filtered by category
+└── [slug]/
+    └── 📄 page.js                 # Single blog post: content, author, comments, related posts
+```
+
+| Section | Functionality |
+|---------|---------------|
+| **Blog Listing** | Featured hero + paginated grid, sidebar categories |
+| **Single Post** | Rich content, featured image, reading time, author card |
+| **Comments** | Threaded comments with reply, name/email required |
+| **Related Posts** | 3 related posts at bottom |
+
+---
+
+### 📋 STATIC PAGES — `app/`
+
+```
+app/
+├── about/
+│   └── 📄 page.js                 # About us: mission, team, stats counters
+├── contact/
+│   └── 📄 page.js                 # Contact form + map + office address + departments
+├── faqs/
+│   └── 📄 page.js                 # FAQ accordion grouped by category + helpful feedback
+├── testimonials/
+│   └── 📄 page.js                 # Testimonials grid/masonry + submit form
+├── privacy-policy/
+│   └── 📄 page.js                 # Privacy policy
+└── terms/
+    └── 📄 page.js                 # Terms of service
+```
+
+---
+
+### 👑 ADMIN DASHBOARD — `app/admin/`
+
+```
+app/admin/
+├── 📄 layout.js                   # Admin layout: sidebar nav + topbar + content area
+│
+├── 📄 page.js                     # ← DASHBOARD OVERVIEW
+│   ┌──────────────────────────────────────────────────────┐
+│   │ KPI Cards: Total Users, Properties, Leads, Revenue   │
+│   │ Charts: User Growth, Lead Pipeline, Revenue by City   │
+│   │ Recent Activity Feed                                  │
+│   │ Top Properties table                                  │
+│   │ Pending Approvals quick list                          │
+│   └──────────────────────────────────────────────────────┘
+│
+├── users/
+│   ├── 📄 page.js                 # Users table: search, filter by role, activate/deactivate
+│   └── [id]/
+│       └── 📄 page.js             # User detail: profile, preferences, activity log, edit role
+│
+├── properties/
+│   ├── 📄 page.js                 # Properties table: all statuses, filter, sort, quick actions
+│   ├── new/
+│   │   └── 📄 page.js             # ← ADD PROPERTY (8-step wizard form)
+│   └── [id]/
+│       ├── 📄 page.js             # Property detail view
+│       └── edit/
+│           └── 📄 page.js         # ← EDIT PROPERTY (8-step wizard pre-filled)
+│
+├── property-requests/
+│   ├── 📄 page.js                 # Requests table: status filter, ROI column, bulk actions
+│   └── [id]/
+│       └── 📄 page.js             # Request detail: ROI review, approve/reject, view completion
+│       ┌──────────────────────────────────────────────────┐
+│       │ Submitter Info Card                               │
+│       │ Property Summary                                  │
+│       │ 💰 Financial/ROI Highlights                       │
+│       │ Proposed Amenities                                │
+│       │ Documents/Photos viewer                           │
+│       │ Approval Form (approve/reject + notes)            │
+│       │ Completion Status tracker                         │
+│       └──────────────────────────────────────────────────┘
+│
+├── leads/
+│   ├── 📄 page.js                 # Leads table/kanban: pipeline stages, assign, follow-up
+│   └── [id]/
+│       └── 📄 page.js             # Lead detail: timeline, notes, next actions, convert
+│
+├── inquiries/
+│   └── 📄 page.js                 # Inquiries table: status filter, reply inline, stats cards
+│
+├── blog/
+│   ├── 📄 page.js                 # Posts table: drafts, published, scheduled
+│   ├── new/
+│   │   └── 📄 page.js             # Blog editor: rich text, image upload, SEO fields, schedule
+│   ├── [id]/edit/
+│   │   └── 📄 page.js             # Edit blog post
+│   ├── categories/
+│   │   └── 📄 page.js             # Categories CRUD table
+│   └── comments/
+│       └── 📄 page.js             # Comments moderation: approve/delete
+│
+├── reviews/
+│   └── 📄 page.js                 # Reviews moderation: approve/reject/flag, filter by property
+│
+├── testimonials/
+│   └── 📄 page.js                 # Testimonials moderation: approve, feature toggle, delete
+│
+├── faqs/
+│   └── 📄 page.js                 # FAQs CRUD: add, edit, reorder, toggle active, categories
+│
+├── contact-messages/
+│   └── 📄 page.js                 # Messages inbox: read/unread, reply inline
+│
+├── notifications/
+│   ├── 📄 page.js                 # Send notification: single/broadcast, use template
+│   └── templates/
+│       └── 📄 page.js             # Templates CRUD: name, type, body with {{variables}}
+│
+├── analytics/
+│   └── 📄 page.js                 # Deep analytics: property stats, city heatmap, agent perf
+│
+├── amenities/
+│   └── 📄 page.js                 # Amenity master CRUD: name, category, icon, premium toggle
+│
+├── tags/
+│   └── 📄 page.js                 # Tags CRUD: name, group
+│
+├── milestones/
+│   └── 📄 page.js                 # Milestones by property: timeline view, progress photos
+│
+├── audit-logs/
+│   └── 📄 page.js                 # Audit trail: filterable by user, action, entity, date
+│
+└── settings/
+    └── 📄 page.js                 # Admin app settings: site name, SEO defaults, maintenance
+```
+
+---
+
+## 📁 components/
+
+```
+components/
+├── 📁 layout/
+│   ├── 📄 Navbar.jsx              # Public navbar: logo, nav links, auth buttons, mobile menu
+│   ├── 📄 Footer.jsx              # Footer: links, social, newsletter, copyright
+│   ├── 📄 UserSidebar.jsx         # User dashboard sidebar navigation
+│   ├── 📄 AdminSidebar.jsx        # Admin sidebar: collapsible, icons, active state
+│   ├── 📄 AdminTopbar.jsx         # Admin topbar: search, notifications bell, profile
+│   └── 📄 MobileMenu.jsx          # Hamburger menu overlay
+│
+├── 📁 ui/                         # Design system primitives
+│   ├── 📄 Button.jsx              # Primary, secondary, outline, icon, loading states
+│   ├── 📄 Input.jsx               # Text, email, tel, number with label + error
+│   ├── 📄 Select.jsx              # Dropdown with placeholder
+│   ├── 📄 Textarea.jsx            # Textarea with char count
+│   ├── 📄 Toggle.jsx              # Toggle switch
+│   ├── 📄 Checkbox.jsx            # Checkbox with label
+│   ├── 📄 RadioGroup.jsx          # Radio button group
+│   ├── 📄 StarRating.jsx          # 1–5 star rating input/display
+│   ├── 📄 FileUpload.jsx          # Drag-drop + click file upload with preview
+│   ├── 📄 RangeSlider.jsx         # Min-max range slider (price filter)
+│   ├── 📄 Modal.jsx               # Reusable modal overlay
+│   ├── 📄 Drawer.jsx              # Slide-in side panel (filters, favorites)
+│   ├── 📄 Toast.jsx               # Toast notification
+│   ├── 📄 Badge.jsx               # Status badges (Active, Pending, etc.)
+│   ├── 📄 Tabs.jsx                # Tab switcher
+│   ├── 📄 Accordion.jsx           # Expandable accordion
+│   ├── 📄 Tooltip.jsx             # Hover tooltip
+│   ├── 📄 Skeleton.jsx            # Loading skeleton
+│   ├── 📄 Pagination.jsx          # Paginated navigation
+│   ├── 📄 DataTable.jsx           # Sortable, filterable data table (admin)
+│   ├── 📄 EmptyState.jsx          # Empty state with icon + message
+│   └── 📄 Breadcrumb.jsx          # Breadcrumb navigation
+│
+├── 📁 property/
+│   ├── 📄 PropertyCard.jsx        # Property card (image, price, bhk, area, favorite btn)
+│   ├── 📄 PropertyList.jsx        # Property grid/list view wrapper
+│   ├── 📄 PropertyCarousel.jsx    # Horizontal scroll carousel of properties
+│   ├── 📄 PropertyGallery.jsx     # Image gallery with thumbnails + fullscreen
+│   ├── 📄 PropertyInfoCard.jsx    # Key stats card (price, BHK, sqft, status)
+│   ├── 📄 FloorPlanViewer.jsx     # BHK tabs → variant cards with images
+│   ├── 📄 AmenityGrid.jsx         # Amenity icons grid grouped by category
+│   ├── 📄 SpecsAccordion.jsx      # Electrification, flooring, etc. accordion
+│   ├── 📄 PriceChart.jsx          # Chart.js price trend line chart
+│   ├── 📄 SellerCard.jsx          # Seller info with avatar + rating
+│   └── 📄 InquiryForm.jsx         # Sticky inquiry sidebar form
+│
+├── 📁 map/                        # Google Maps (from your v6)
+│   ├── 📄 MapContainer.jsx        # Google Map with markers, clustering, info windows
+│   ├── 📄 MapFilters.jsx          # Filter bar (search, city, type, price, status, bedrooms)
+│   ├── 📄 MapDrawTools.jsx        # Polygon draw + clear + bounds filter buttons
+│   ├── 📄 MapSidebar.jsx          # Scrollable property cards sidebar
+│   ├── 📄 CompareBar.jsx          # Bottom compare bar with property chips
+│   ├── 📄 CompareModal.jsx        # Full comparison table modal
+│   ├── 📄 FavoritesPanel.jsx      # Right slide-in favorites panel
+│   ├── 📄 MoreFiltersPanel.jsx    # Left slide-in advanced filters panel
+│   └── 📄 ActiveBadges.jsx        # Active filter pills with remove
+│
+├── 📁 forms/                      # Multi-step forms
+│   ├── 📄 MultiStepWizard.jsx     # Reusable step-by-step form wrapper
+│   ├── 📄 StepIndicator.jsx       # Step progress bar (1/5, 2/5...)
+│   ├── 📄 PropertyRequestForm.jsx # 5-step property request (ROI compulsory)
+│   ├── 📄 PropertyCompletionForm.jsx  # 8-section post-approval completion
+│   ├── 📄 AdminPropertyForm.jsx   # 8-step admin add/edit property wizard
+│   ├── 📄 ReviewForm.jsx          # Submit review with star ratings
+│   ├── 📄 LeadForm.jsx            # Admin lead management form
+│   ├── 📄 BlogEditor.jsx          # Rich text editor with image upload
+│   └── 📄 NotificationSender.jsx  # Admin notification form with templates
+│
+├── 📁 admin/                      # Admin-specific components
+│   ├── 📄 KPICard.jsx             # Stat card with icon, value, trend arrow
+│   ├── 📄 ChartCard.jsx           # Chart wrapper (line, bar, pie, doughnut)
+│   ├── 📄 ActivityFeed.jsx        # Recent activity list
+│   ├── 📄 LeadKanban.jsx          # Drag-drop kanban board for leads
+│   ├── 📄 ROIReviewCard.jsx       # ROI/financial highlights for request review
+│   ├── 📄 MilestoneTimeline.jsx   # Construction milestone timeline
+│   └── 📄 AuditLogTable.jsx       # Filterable audit log table
+│
+├── 📁 blog/
+│   ├── 📄 BlogCard.jsx            # Blog post card (image, title, excerpt, date)
+│   ├── 📄 BlogHero.jsx            # Featured post hero banner
+│   └── 📄 CommentThread.jsx       # Threaded comment list with reply form
+│
+└── 📁 common/
+    ├── 📄 TestimonialCard.jsx     # Testimonial card with quote, name, rating
+    ├── 📄 FAQAccordion.jsx        # FAQ item with helpful/not helpful buttons
+    ├── 📄 NewsletterCTA.jsx       # Email subscription input
+    ├── 📄 StatsCounter.jsx        # Animated counter (500+ Properties, etc.)
+    ├── 📄 SearchBar.jsx           # Autocomplete search with suggestions
+    └── 📄 ShareButtons.jsx        # WhatsApp, Copy Link, social share
+```
+
+---
+
+## 📁 lib/
+
+```
+lib/
+├── 📁 api/                        # API service functions (axios/fetch calls)
+│   ├── 📄 client.js               # Axios instance with baseURL, interceptors, auth token
+│   ├── 📄 auth.js                 # login, register, logout, resetPassword, verifyEmail
+│   ├── 📄 users.js                # getProfile, updateProfile, getPreferences, updatePrefs
+│   ├── 📄 properties.js           # list, getBySlug, search, featured, trending, nearby
+│   ├── 📄 propertyAdmin.js        # create, update, delete, updateStatus, sub-table CRUD
+│   ├── 📄 pricing.js              # getPricing, addPricing, updatePricing, deletePricing
+│   ├── 📄 media.js                # uploadMedia, deleteMedia, setPrimary
+│   ├── 📄 reviews.js              # getReviews, submitReview, markHelpful, report
+│   ├── 📄 leads.js                # getLeads, updateStatus, assign, followUp
+│   ├── 📄 inquiries.js            # submitInquiry, getInquiries, reply
+│   ├── 📄 propertyRequests.js     # submit, getOwn, complete, adminReview
+│   ├── 📄 favorites.js            # add, remove, check, list
+│   ├── 📄 comparisons.js          # create, update, delete, list
+│   ├── 📄 blog.js                 # getPosts, getBySlug, comments, categories
+│   ├── 📄 content.js              # testimonials, faqs, contactMessages
+│   ├── 📄 notifications.js        # get, markRead, delete, send, templates
+│   ├── 📄 analytics.js            # dashboard, propertyAnalytics, marketTrends
+│   ├── 📄 audit.js                # auditLogs, activity, loginHistory
+│   ├── 📄 tags.js                 # getTags, create, update, delete
+│   └── 📄 savedSearches.js        # create, list, update, delete, runSearch
+│
+├── 📁 hooks/                      # Custom React hooks
+│   ├── 📄 useAuth.js              # Auth state, login, logout, isAdmin
+│   ├── 📄 useApi.js               # Generic API fetch hook with loading/error
+│   ├── 📄 useFavorites.js         # Favorites state management
+│   ├── 📄 useCompare.js           # Compare list state management
+│   ├── 📄 useFilters.js           # Property filters state + URL sync
+│   ├── 📄 useMap.js               # Google Maps init, markers, polygon
+│   ├── 📄 useInfiniteScroll.js    # Infinite scroll pagination
+│   ├── 📄 useToast.js             # Toast notification state
+│   ├── 📄 useDebounce.js          # Input debounce
+│   ├── 📄 useMediaQuery.js        # Responsive breakpoint detection
+│   └── 📄 useLocalStorage.js      # Persistent local storage state
+│
+├── 📁 context/                    # React Context providers
+│   ├── 📄 AuthContext.js          # Auth provider: user, token, isLogged, isAdmin
+│   ├── 📄 ThemeContext.js         # Dark mode toggle
+│   ├── 📄 FavoritesContext.js     # Global favorites state
+│   └── 📄 NotificationContext.js  # Unread notifications count
+│
+├── 📁 utils/
+│   ├── 📄 formatters.js           # formatPrice(₹), formatDate, formatArea(sqft)
+│   ├── 📄 validators.js           # Form validation helpers
+│   ├── 📄 constants.js            # Enums, dropdown options, status colors
+│   ├── 📄 mapUtils.js             # Map helpers (bounds, polygon, distance)
+│   └── 📄 seo.js                  # Generate meta tags, structured data
+│
+└── 📄 middleware.js               # Next.js middleware: auth redirect, admin guard
+```
+
+---
+
+## 📊 Page & Feature Summary
+
+| Page | Route | Key Features |
+|------|-------|-------------|
+| Home | `/` | Hero, search bar, featured properties, testimonials, blog, FAQ |
+| Properties | `/properties` | **Google Map + filters + sidebar + compare + favorites** |
+| Property Detail | `/properties/[slug]` | **Multi-tab: gallery, floor plans, amenities, map, specs, price chart, reviews** |
+| Login | `/login` | Email/password form |
+| Register | `/register` | Registration form |
+| User Dashboard | `/dashboard` | Activity overview |
+| Profile | `/profile` | Edit profile (16 fields) |
+| Preferences | `/preferences` | Notification/privacy/display toggles |
+| Favorites | `/favorites` | Favorited properties grid |
+| My Inquiries | `/inquiries` | Inquiry list + admin responses |
+| Submit Request | `/property-requests/new` | **5-step wizard (ROI compulsory)** |
+| Complete Request | `/property-requests/[id]/complete` | **8-section completion form (post-approval)** |
+| Blog | `/blog` | Post listing + categories |
+| Blog Post | `/blog/[slug]` | Full post + comments |
+| Contact | `/contact` | Contact form + map |
+| FAQs | `/faqs` | Accordion by category |
+| **Admin Dashboard** | `/admin` | **KPI cards, charts, activity feed** |
+| Admin Users | `/admin/users` | User management table |
+| Admin Properties | `/admin/properties` | Properties table + quick actions |
+| Admin Add Property | `/admin/properties/new` | **8-step wizard form** |
+| Admin Requests | `/admin/property-requests` | **ROI review + approve/reject** |
+| Admin Leads | `/admin/leads` | **Kanban board + pipeline** |
+| Admin Blog | `/admin/blog` | Post editor + categories + comments |
+| Admin Analytics | `/admin/analytics` | Deep analytics + city heatmap |
+| Admin Audit | `/admin/audit-logs` | Audit trail table |
+
+---
+
+## 📦 Key Dependencies
+
+```json
+{
+  "dependencies": {
+    "next": "^14.2",
+    "react": "^18.3",
+    "react-dom": "^18.3",
+    "axios": "^1.7",
+    "@react-google-maps/api": "^2.19",
+    "chart.js": "^4.4",
+    "react-chartjs-2": "^5.2",
+    "react-quill": "^2.0",
+    "react-hot-toast": "^2.4",
+    "react-icons": "^5.0",
+    "js-cookie": "^3.0",
+    "date-fns": "^3.3",
+    "swiper": "^11.0",
+    "framer-motion": "^11.0",
+    "@hello-pangea/dnd": "^16.5"
+  }
+}
+```
+
+---
+
+## 📊 File Count
+
+| Folder | Files | Purpose |
+|--------|-------|---------|
+| app/ (pages) | ~45 | All routes & layouts |
+| components/ | ~65 | Reusable UI + feature components |
+| lib/ | ~35 | API, hooks, context, utils |
+| styles/ | 4 | Global CSS |
+| **Total** | **~150** | |

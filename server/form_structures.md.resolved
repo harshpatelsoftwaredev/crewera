@@ -1,0 +1,731 @@
+# 📋 Crewera Reality — All Form Structures (Updated v2)
+
+> **30 Forms** · **~350 Fields** · Advanced Property Request with Compulsory ROI
+
+---
+
+## 🔄 Property Listing Workflow
+
+```mermaid
+flowchart LR
+    A["👤 User submits\nProperty Request\n(ROI compulsory)"] --> B["👑 Admin reviews\nROI & Financials"]
+    B -->|Reject| C["❌ Rejected\n(with reason)"]
+    B -->|Approve| D["✅ Approved"]
+    D --> E["👤 User completes\nFULL property details"]
+    E --> F["👑 Admin verifies\n& Lists property"]
+    G["👑 Admin can also\ndirectly Add Property\n(8-step wizard)"] --> F
+```
+
+> **Admin can do EVERYTHING** — add properties directly, approve/reject requests, edit any property, manage all data.
+
+---
+
+## Conventions
+
+| Symbol | Meaning |
+|--------|---------|
+| ✅ | Required |
+| ⬜ | Optional |
+| 📎 | File Upload |
+| 🔽 | Dropdown / Select |
+| 💰 | Financial / ROI Field |
+
+---
+
+## 🏠 PUBLIC FORMS
+
+---
+
+### Form 1: Registration
+
+| # | Field | Type | Validation | Req |
+|---|-------|------|------------|-----|
+| 1 | First Name | `text` | Min 2, Max 100 | ✅ |
+| 2 | Last Name | `text` | Min 2, Max 100 | ✅ |
+| 3 | Email | `email` | Valid, unique | ✅ |
+| 4 | Phone | `tel` | +91 format | ⬜ |
+| 5 | Password | `password` | Min 8, 1 upper, 1 number, 1 special | ✅ |
+| 6 | Confirm Password | `password` | Must match | ✅ |
+| 7 | Terms & Conditions | `checkbox` | Must be checked | ✅ |
+
+---
+
+### Form 2: Login
+
+| # | Field | Type | Validation | Req |
+|---|-------|------|------------|-----|
+| 1 | Email | `email` | Valid | ✅ |
+| 2 | Password | `password` | Non-empty | ✅ |
+| 3 | Remember Me | `checkbox` | — | ⬜ |
+
+---
+
+### Form 3: Forgot Password
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Email | `email` | ✅ |
+
+### Form 4: Reset Password
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | New Password | `password` | ✅ |
+| 2 | Confirm Password | `password` | ✅ |
+
+---
+
+### Form 5: Contact Us
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Full Name | `text` | ✅ |
+| 2 | Email | `email` | ✅ |
+| 3 | Phone | `tel` | ⬜ |
+| 4 | Subject | `text` | ✅ |
+| 5 | Department | 🔽 Sales / Support / Complaints / General | ⬜ |
+| 6 | Message | `textarea` | ✅ |
+
+---
+
+### Form 6: Property Inquiry
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Property ID | `hidden` | ✅ |
+| 2 | Full Name | `text` | ✅ |
+| 3 | Email | `email` | ✅ |
+| 4 | Phone | `tel` | ✅ |
+| 5 | Inquiry Type | 🔽 Property Inquiry / General / Site Visit / Callback | ✅ |
+| 6 | Message | `textarea` | ✅ |
+
+---
+
+### Form 7: Blog Comment
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Name | `text` | ✅ |
+| 2 | Email | `email` | ✅ |
+| 3 | Comment | `textarea` | ✅ |
+| 4 | Reply To (Parent) | `hidden` | ⬜ |
+
+---
+
+## 🔒 USER FORMS
+
+---
+
+### Form 8: Edit Profile
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | First Name | `text` | ✅ |
+| 2 | Last Name | `text` | ✅ |
+| 3 | Profile Picture | 📎 `file` jpg/png/webp, 5MB | ⬜ |
+| 4 | Date of Birth | `date` | ⬜ |
+| 5 | Gender | 🔽 Male / Female / Other / Prefer Not to Say | ⬜ |
+| 6 | Bio | `textarea` | ⬜ |
+| 7 | Occupation | `text` | ⬜ |
+| 8 | Company Name | `text` | ⬜ |
+| 9 | City | `text` | ⬜ |
+| 10 | State | `text` | ⬜ |
+| 11 | Address | `textarea` | ⬜ |
+| 12 | Pincode | `text` 6 digits | ⬜ |
+| 13 | Alternate Phone | `tel` | ⬜ |
+| 14 | Languages | `text` comma separated | ⬜ |
+| 15 | LinkedIn URL | `url` | ⬜ |
+| 16 | Twitter URL | `url` | ⬜ |
+
+---
+
+### Form 9: User Preferences / Settings
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| | **Notifications** | | |
+| 1 | Property Updates | `toggle` | ⬜ |
+| 2 | Inquiry Responses | `toggle` | ⬜ |
+| 3 | Marketing Emails | `toggle` | ⬜ |
+| 4 | Newsletter | `toggle` | ⬜ |
+| 5 | SMS Notifications | `toggle` | ⬜ |
+| 6 | Push Notifications | `toggle` | ⬜ |
+| | **Privacy** | | |
+| 7 | Show Profile Publicly | `toggle` | ⬜ |
+| 8 | Show Favorites | `toggle` | ⬜ |
+| 9 | Allow Developer Contact | `toggle` | ⬜ |
+| 10 | Show Activity Status | `toggle` | ⬜ |
+| | **Display** | | |
+| 11 | Preferred Currency | 🔽 INR / USD / AED | ⬜ |
+| 12 | Preferred Language | 🔽 English / Hindi / Gujarati | ⬜ |
+| 13 | Dark Mode | `toggle` | ⬜ |
+
+---
+
+### Form 10: Change Password
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Current Password | `password` | ✅ |
+| 2 | New Password | `password` | ✅ |
+| 3 | Confirm New Password | `password` | ✅ |
+
+---
+
+### Form 11: Submit Property Review
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Overall Rating | `star-rating` 1–5 | ✅ |
+| 2 | Construction Quality | `star-rating` 1–5 | ⬜ |
+| 3 | Location Rating | `star-rating` 1–5 | ⬜ |
+| 4 | Amenities Rating | `star-rating` 1–5 | ⬜ |
+| 5 | Value for Money | `star-rating` 1–5 | ⬜ |
+| 6 | Review Title | `text` | ⬜ |
+| 7 | Review Text | `textarea` Min 20 | ✅ |
+| 8 | Pros | `textarea` | ⬜ |
+| 9 | Cons | `textarea` | ⬜ |
+
+---
+
+### Form 12: Submit Testimonial
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Your Name | `text` | ✅ |
+| 2 | Designation | `text` | ⬜ |
+| 3 | Your Image | 📎 `file` | ⬜ |
+| 4 | Related Property | 🔽 property list | ⬜ |
+| 5 | Testimonial Text | `textarea` Min 20 | ✅ |
+| 6 | Rating | `star-rating` 1–5 | ⬜ |
+| 7 | Video Testimonial? | `toggle` | ⬜ |
+| 8 | Video URL | `url` (if video=yes) | ⬜ |
+
+---
+
+### Form 13: 🏗️ Property Listing Request — Multi-Step (5 Steps)
+
+> **Advanced form with compulsory ROI.** Admin reviews financials before approval.
+
+#### Step 1: Your Information (All Required)
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Your Name | `text` | ✅ |
+| 2 | Your Email | `email` | ✅ |
+| 3 | Your Phone | `tel` | ✅ |
+| 4 | Your Address | `textarea` | ✅ |
+
+#### Step 2: Property Details
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 5 | Project Name | `text` | ✅ |
+| 6 | Property Type | 🔽 Residential / Commercial / Mixed / Industrial | ✅ |
+| 7 | Special Type | 🔽 None / Pent House / Duplex / Triplex / Villa / Bungalow / Farmhouse | ⬜ |
+| 8 | Builder/Developer Name | `text` | ⬜ |
+| 9 | Description | `textarea` | ⬜ |
+| 10 | BHK Type | `text` e.g. 2 BHK, 3 BHK, Commercial | ⬜ |
+| 11 | Total Units | `number` | ⬜ |
+| 12 | Available Units | `number` | ⬜ |
+| 13 | Size — Super Buildup (sqft) | `number` | ⬜ |
+| 14 | Size — Carpet (sqft) | `number` | ⬜ |
+| 15 | Facing | 🔽 E / W / N / S / NE / NW / SE / SW | ⬜ |
+
+#### Step 3: Location & Construction
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 16 | Property Location (Address) | `textarea` | ✅ |
+| 17 | City | 🔽 city list | ⬜ |
+| 18 | State | 🔽 state list | ⬜ |
+| 19 | Pincode | `text` 6 digits | ⬜ |
+| 20 | Landmarks | `textarea` | ⬜ |
+| 21 | Construction Stage | 🔽 Pre-Launch / Under Construction / Ready to Move | ⬜ |
+| 22 | Project Start Date | `date` | ⬜ |
+| 23 | Expected Completion | `date` | ⬜ |
+| 24 | Possession Date | `date` | ⬜ |
+
+#### Step 4: 💰 Pricing & ROI (ROI is COMPULSORY)
+
+> [!IMPORTANT]
+> **ROI, Price Per Unit, and Expected Revenue are COMPULSORY.** Admin will evaluate the request based on these financial metrics.
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 25 | 💰 Price Per Unit (₹) | `number` | ✅ |
+| 26 | 💰 Price Per Sqft (₹) | `number` | ⬜ |
+| 27 | 💰 Total Project Cost (₹) | `number` | ⬜ |
+| 28 | 💰 Expected Revenue (₹) | `number` | ✅ |
+| 29 | 💰 **ROI (%)** | `number` 0–100, 2 decimal | **✅ COMPULSORY** |
+| 30 | 💰 Rental Yield (%) | `number` | ⬜ |
+| 31 | 💰 Expected Appreciation (%) | `number` | ⬜ |
+| 32 | 💰 Booking Amount (₹) | `number` | ⬜ |
+| 33 | Price Negotiable | `toggle` | ⬜ |
+
+#### Step 5: Supporting Info & Contacts
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 34 | Request Reason / Why List? | `textarea` | ⬜ |
+| 35 | Proposed Amenities | `multi-checkbox` from amenity catalog | ⬜ |
+| 36 | Photos | 📎 `file` multiple, jpg/png, Max 10MB | ⬜ |
+| 37 | Video URL | `url` YouTube/Vimeo | ⬜ |
+| 38 | Brochure | 📎 `file` pdf, Max 25MB | ⬜ |
+| 39 | Financial Documents | 📎 `file` pdf/xlsx, Max 25MB | ⬜ |
+| 40 | Contact Person Name | `text` | ⬜ |
+| 41 | Contact Person Phone | `tel` | ⬜ |
+| 42 | Contact Person Email | `email` | ⬜ |
+| 43 | Contact Person Designation | `text` | ⬜ |
+
+---
+
+### Form 14: 📝 Complete Property Details (Post-Approval)
+
+> [!WARNING]
+> This form appears ONLY after Admin approves the request. The user MUST provide **ALL required fields** before the property can be listed.
+> 
+> Pre-filled with data from the original request. User adds remaining details.
+
+#### Section A: Verify & Complete Basic Info
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Project Name | `text` (pre-filled) | ✅ |
+| 2 | Builder Name | `text` (pre-filled) | ✅ |
+| 3 | Team Name | `text` | ⬜ |
+| 4 | Full Description | `rich-text` | ✅ |
+| 5 | Short Description | `textarea` Max 500 | ✅ |
+| 6 | Total Units | `number` (pre-filled) | ✅ |
+| 7 | Available Units | `number` (pre-filled) | ✅ |
+| 8 | Total Towers | `number` | ⬜ |
+| 9 | Total Floors | `number` | ⬜ |
+| 10 | Project Area (acres) | `number` | ⬜ |
+
+#### Section B: Complete Location Details
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 11 | Full Address | `textarea` (pre-filled) | ✅ |
+| 12 | Locality | `text` | ✅ |
+| 13 | City | 🔽 (pre-filled) | ✅ |
+| 14 | State | 🔽 (pre-filled) | ✅ |
+| 15 | Pincode | `text` | ✅ |
+| 16 | 📍 Pick on Map (Lat/Lng) | `map-picker` | ⬜ |
+| 17 | Landmarks | `textarea` (pre-filled) | ⬜ |
+| 18 | Nearest Metro | `text` | ⬜ |
+| 19 | Nearest Railway | `text` | ⬜ |
+| 20 | Nearest Airport | `text` | ⬜ |
+
+#### Section C: Legal & Compliance
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 21 | RERA Number | `text` | ✅ |
+| 22 | RERA Status | 🔽 Approved / Applied / Not Required | ✅ |
+| 23 | Legal Status | `text` | ⬜ |
+| 24 | Paper Ratio (%) | `number` | ⬜ |
+| 25 | Title Clear | `toggle` | ✅ |
+| 26 | Encumbrance Clear | `toggle` | ✅ |
+| 27 | Fire NOC | `toggle` | ⬜ |
+
+#### Section D: Building Specs & Utilities
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 28 | Storeys | `number` | ⬜ |
+| 29 | Basements | `number` | ⬜ |
+| 30 | Lifts | `number` | ⬜ |
+| 31 | Units Per Floor | `number` | ⬜ |
+| 32 | Allocated Parking | `number` | ⬜ |
+| 33 | Sample House Available | `toggle` | ⬜ |
+| 34 | Electricity Provider | `text` | ⬜ |
+| 35 | Water Supply Provider | `text` | ⬜ |
+| 36 | Maintenance Cost (₹/month) | `number` | ⬜ |
+
+#### Section E: Pricing Variants (Repeatable rows — ➕ Add more)
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 37 | BHK Type | `text` | ✅ |
+| 38 | Tower | `text` | ⬜ |
+| 39 | Total Units (this variant) | `number` | ✅ |
+| 40 | Available Units | `number` | ✅ |
+| 41 | Size — Super Buildup (sqft) | `number` | ✅ |
+| 42 | Size — Carpet (sqft) | `number` | ✅ |
+| 43 | 💰 Price (₹) | `number` | ✅ |
+| 44 | 💰 Price Per Sqft (₹) | `number` auto-calc | ⬜ |
+| 45 | 💰 Revenue (₹) | `number` | ✅ |
+| 46 | 💰 ROI (%) | `number` | ✅ |
+| 47 | 💰 Rental Yield (%) | `number` | ⬜ |
+
+#### Section F: Unit Specifications (Repeatable — per BHK/tower)
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 48 | Front/Back/Left/Right Dimension (ft) | `number` ×4 | ⬜ |
+| 49 | Facing | 🔽 E/W/N/S/NE/NW/SE/SW | ⬜ |
+| 50 | Special Feature | `text` | ⬜ |
+| 51 | Corner Unit? | `toggle` | ⬜ |
+| 52 | Servant / Study / Pooja Room | `toggle` ×3 | ⬜ |
+
+#### Section G: Amenities & Media
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 53 | Amenities | `multi-checkbox` from catalog | ✅ (min 3) |
+| 54 | Photos | 📎 `file` multiple | ✅ (min 3) |
+| 55 | Floorplans | 📎 `file` pdf/jpg | ✅ (min 1) |
+| 56 | 3D Renders | 📎 `file` | ⬜ |
+| 57 | Video / Drone | 📎 `file` or `url` | ⬜ |
+| 58 | Brochure | 📎 `file` pdf | ⬜ |
+
+#### Section H: Sales Contacts (Repeatable — ➕ Add more)
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 59 | Contact Type | 🔽 Sales Head / Developer / Support | ✅ |
+| 60 | Name | `text` | ✅ |
+| 61 | Mobile | `tel` | ✅ |
+| 62 | Email | `email` | ⬜ |
+| 63 | Designation | `text` | ⬜ |
+
+---
+
+### Form 15: Save Search / Price Alert
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Search Name | `text` | ✅ |
+| 2 | City | 🔽 city list | ⬜ |
+| 3 | Property Type | 🔽 Residential / Commercial / Mixed | ⬜ |
+| 4 | BHK Type | `text` | ⬜ |
+| 5 | Price Min (₹) | `number` | ⬜ |
+| 6 | Price Max (₹) | `number` | ⬜ |
+| 7 | Construction Stage | 🔽 | ⬜ |
+| 8 | Enable Alerts | `toggle` | ⬜ |
+| 9 | Alert Frequency | 🔽 Instant / Daily / Weekly | ⬜ |
+
+---
+
+## 👑 ADMIN FORMS
+
+---
+
+### Form 16: 🏗️ Admin Add Property — Multi-Step Wizard (8 Steps)
+
+> Admin can **directly add any property** without going through the request workflow.
+> This is the FULL form covering ALL tables in the database.
+
+#### Step 1 of 8: Basic Info
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Project Name | `text` | ✅ |
+| 2 | Property Type | 🔽 Residential / Commercial / Mixed / Industrial / Agricultural | ✅ |
+| 3 | Special Type | 🔽 None / Pent House / Duplex / Triplex / Villa / Bungalow / Farmhouse / Studio | ⬜ |
+| 4 | Builder Name | `text` | ✅ |
+| 5 | Team Name | `text` | ⬜ |
+| 6 | Date | `date` | ⬜ |
+| 7 | Short Description | `textarea` | ⬜ |
+| 8 | Full Description | `rich-text` | ⬜ |
+| 9 | Total Units | `number` | ⬜ |
+| 10 | Available Units | `number` | ⬜ |
+| 11 | Total Towers / Total Floors | `number` ×2 | ⬜ |
+| 12 | Project Area (acres) | `number` | ⬜ |
+| 13 | Green Area (%) | `number` | ⬜ |
+| 14 | Is Featured / Is Premium | `toggle` ×2 | ⬜ |
+
+#### Step 2 of 8: Location
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Address | `textarea` | ✅ |
+| 2 | Locality | `text` | ⬜ |
+| 3 | City / District / State | 🔽 ×3 | ✅ |
+| 4 | Pincode | `text` | ⬜ |
+| 5 | 📍 Pick on Map (Lat/Lng) | `map-picker` | ⬜ |
+| 6 | Area / Zone | `text` | ⬜ |
+| 7 | Landmarks | `textarea` | ⬜ |
+| 8 | Nearest Metro / Railway / Airport / Highway | `text` ×4 | ⬜ |
+
+#### Step 3 of 8: Construction & Timeline
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Construction Stage | 🔽 Pre-Launch / Newly Launched / Under Construction / Nearing Completion / Ready to Move | ✅ |
+| 2 | Completion (%) | `range-slider` 0–100 | ⬜ |
+| 3 | Project Start Date | `date` | ⬜ |
+| 4 | Expected Completion | `date` | ⬜ |
+| 5 | Possession Date | `date` | ⬜ |
+| 6 | Last Inspection Date / Notes | `date` + `textarea` | ⬜ |
+
+#### Step 4 of 8: Legal & Compliance
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | RERA Number | `text` | ⬜ |
+| 2 | RERA Status | 🔽 Approved / Applied / Not Required / Expired | ⬜ |
+| 3 | RERA Expiry Date | `date` | ⬜ |
+| 4 | Legal Status | `text` | ⬜ |
+| 5 | Paper Ratio (%) | `number` | ⬜ |
+| 6 | Encumbrance / Title Clear | `toggle` ×2 | ⬜ |
+| 7 | Occupancy / Completion Certificate | `toggle` ×2 | ⬜ |
+| 8 | Environment / Fire / Aviation NOC | `toggle` ×3 | ⬜ |
+| 9 | Approved By / Date | `text` + `date` | ⬜ |
+
+#### Step 5 of 8: Building Specs & Utilities
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| | **Building Specs** | | |
+| 1 | Social Class | `text` | ⬜ |
+| 2 | Storeys / Basements / Lifts / Staircases | `number` ×4 | ⬜ |
+| 3 | Balconies / Units Per Floor | `number` ×2 | ⬜ |
+| 4 | Allocated / Visitor / Open / Covered Parking | `number` ×4 | ⬜ |
+| 5 | Sample House Available | `toggle` | ⬜ |
+| 6 | Structure Type | 🔽 RCC / Steel / Composite / Load Bearing | ⬜ |
+| 7 | Flooring / Wall / Window / Door Type | `text` ×4 | ⬜ |
+| | **Utilities** | | |
+| 8 | Electricity Provider / Billing / Backup | `text` + 🔽 ×2 | ⬜ |
+| 9 | Gas Provider / Pipeline | `text` + `toggle` | ⬜ |
+| 10 | Water Provider / Source | `text` + 🔽 | ⬜ |
+| 11 | Rainwater Harvesting / Sewage / Waste Mgmt | `toggle` ×2 + 🔽 | ⬜ |
+| 12 | Internet Provider / Fiber Optic | `text` + `toggle` | ⬜ |
+| 13 | Maintenance Cost + Per Sqft + Billing | `number` ×2 + 🔽 | ⬜ |
+| 14 | Price Negotiable | `toggle` | ⬜ |
+
+#### Step 6 of 8: Amenities & Tags
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Amenities | `multi-checkbox` grouped by category from amenity_master | ⬜ |
+| 2 | Tags | `tag-input` search & select from tags table | ⬜ |
+
+#### Step 7 of 8: 💰 Pricing & Unit Specs (Repeatable — ➕ Add rows)
+
+> Each row = one BHK/unit type variant
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | BHK Type | `text` (1 BHK / 2 BHK / Shop / Office) | ✅ |
+| 2 | Tower | `text` | ⬜ |
+| 3 | Floor Range | `text` | ⬜ |
+| 4 | Total / Available Units | `number` ×2 | ✅ |
+| 5 | Super Buildup / Carpet / Balcony (sqft) | `number` ×3 | ⬜ |
+| 6 | 💰 Price (₹) | `number` | ✅ |
+| 7 | 💰 Price Per Sqft (₹) | `number` auto-calc | ⬜ |
+| 8 | 💰 Booking Amount (₹) | `number` | ⬜ |
+| 9 | 💰 Revenue (₹) | `number` | ⬜ |
+| 10 | 💰 ROI (%) | `number` | ⬜ |
+| 11 | 💰 Rental Yield / Appreciation (%) | `number` ×2 | ⬜ |
+| | **Unit Specifications (per variant)** | | |
+| 12 | Front / Back / Right / Left Dimension (ft) | `number` ×4 | ⬜ |
+| 13 | Ceiling Height (ft) | `number` | ⬜ |
+| 14 | Facing | 🔽 E/W/N/S/NE/NW/SE/SW | ⬜ |
+| 15 | Special Feature | `text` | ⬜ |
+| 16 | Corner / Servant / Study / Pooja Room | `toggle` ×4 | ⬜ |
+
+#### Step 8 of 8: Media & Contacts (Repeatable — ➕ Add rows)
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| | **Media (multiple uploads)** | | |
+| 1 | Media Category | 🔽 Photo / 3D Render / Drone Video / Aerial / Tour / Floorplan / Document / 360 Panorama | ✅ |
+| 2 | File | 📎 `file` | ✅ |
+| 3 | Title / Description / Alt Text | `text` ×3 | ⬜ |
+| 4 | Display Order | `number` | ⬜ |
+| 5 | Set as Primary | `toggle` | ⬜ |
+| | **Contacts (multiple)** | | |
+| 6 | Contact Type | 🔽 Sales Head / Developer / Support / Channel Partner / Legal Advisor | ✅ |
+| 7 | Name / Mobile / Email / Designation | `text` ×4 | ✅ (name, mobile) |
+| 8 | Is Primary / Available Hours | `toggle` + `text` | ⬜ |
+
+---
+
+### Form 17: 👑 Construction Milestone
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Property | 🔽 property list | ✅ |
+| 2 | Milestone Name | `text` | ✅ |
+| 3 | Milestone Type | 🔽 Foundation / Structure / Plumbing / Electrical / Finishing / Landscaping / Handover / Other | ✅ |
+| 4 | Target Date | `date` | ⬜ |
+| 5 | Actual Date | `date` | ⬜ |
+| 6 | Completion (%) | `range-slider` 0–100 | ⬜ |
+| 7 | Status | 🔽 Upcoming / In Progress / Completed / Delayed | ✅ |
+| 8 | Notes | `textarea` | ⬜ |
+| 9 | Progress Photo | 📎 `file` | ⬜ |
+
+---
+
+### Form 18: 👑 Lead Management
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Lead Name / Email / Phone | `text` + `email` + `tel` | ✅ |
+| 2 | Property | 🔽 property list | ✅ |
+| 3 | Lead Type | 🔽 Buyer / Investor / Tenant / Channel Partner / NRI | ⬜ |
+| 4 | Lead Source | 🔽 Website / Walk-In / Referral / Social Media / Ad Campaign / Cold Call | ⬜ |
+| 5 | Budget Min / Max (₹) | `number` ×2 | ⬜ |
+| 6 | Interested BHK | `text` | ⬜ |
+| 7 | Message / Notes | `textarea` | ⬜ |
+| 8 | Lead Status | 🔽 New / Contacted / Qualified / Site Visit Done / Negotiating / Booked / Lost / Junk | ⬜ |
+| 9 | Lead Score | `number` 0–100 | ⬜ |
+| 10 | Assigned To | 🔽 agent list | ⬜ |
+| 11 | Next Follow-up | `date` | ⬜ |
+| 12 | Lost Reason | `text` (if Lost) | ⬜ |
+
+---
+
+### Form 19: 👑 Reply to Inquiry
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Status | 🔽 Viewed / Replied / Closed | ✅ |
+| 2 | Priority | 🔽 Low / Medium / High | ⬜ |
+| 3 | Admin Response | `rich-text` | ✅ |
+
+---
+
+### Form 20: 👑 Property Request Review
+
+> [!IMPORTANT]
+> Admin evaluates the **ROI & financial projections** before approving or rejecting.
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Decision | 🔽 Under Review / Approved / Rejected | ✅ |
+| 2 | Admin Notes | `textarea` (internal notes, ROI assessment) | ⬜ |
+| 3 | Rejection Reason | `textarea` (required if Rejected) | ⬜ |
+
+---
+
+### Form 21: 👑 Blog Post Editor
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Title | `text` | ✅ |
+| 2 | Slug | `text` auto-gen, editable | ✅ |
+| 3 | Category | 🔽 blog categories | ⬜ |
+| 4 | Featured Image | 📎 `file` | ⬜ |
+| 5 | Excerpt | `textarea` Max 500 | ⬜ |
+| 6 | Content | `rich-text` | ✅ |
+| 7 | Reading Time (mins) | `number` auto-calc | ⬜ |
+| 8 | Is Featured | `toggle` | ⬜ |
+| 9 | Meta Title / Description | `text` + `textarea` (SEO) | ⬜ |
+| 10 | Status | 🔽 Draft / Published / Scheduled / Archived | ✅ |
+| 11 | Publish / Schedule Date | `datetime` | ⬜ |
+
+---
+
+### Form 22: 👑 Blog Category
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Category Name | `text` unique | ✅ |
+| 2 | Slug | `text` auto-gen | ✅ |
+| 3 | Description | `textarea` | ⬜ |
+| 4 | Icon / Display Order | `text` + `number` | ⬜ |
+
+---
+
+### Form 23: 👑 FAQ Management
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Question | `text` | ✅ |
+| 2 | Answer | `rich-text` | ✅ |
+| 3 | Category | 🔽 General / Property Listing / Buying Process / Account / Payment / Legal / Home Loans / NRI | ✅ |
+| 4 | Display Order | `number` | ⬜ |
+| 5 | Is Active | `toggle` | ⬜ |
+
+---
+
+### Form 24: 👑 Admin User Edit
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Role | 🔽 user / admin / agent / builder | ✅ |
+| 2 | Is Active | `toggle` | ✅ |
+| 3 | Email Verified | `toggle` | ⬜ |
+
+---
+
+### Form 25: 👑 Send Notification
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Recipient | 🔽 radio: Single User / All / By Role | ✅ |
+| 2 | User / Role | 🔽 (conditional) | ⬜ |
+| 3 | Notification Type | 🔽 Property Update / Inquiry Response / Marketing / Newsletter / Price Alert / Milestone / System Alert | ✅ |
+| 4 | Title | `text` | ✅ |
+| 5 | Message | `rich-text` | ✅ |
+| 6 | Action URL | `url` | ⬜ |
+| 7 | Use Template | 🔽 template list (auto-fills) | ⬜ |
+
+---
+
+### Form 26: 👑 Notification Template
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Template Name | `text` unique | ✅ |
+| 2 | Type | 🔽 Email / SMS / Push / In-App | ✅ |
+| 3 | Subject | `text` supports `{{variables}}` | ⬜ |
+| 4 | Body | `rich-text` supports `{{variables}}` | ✅ |
+| 5 | Variables | `tag-input` | ⬜ |
+| 6 | Is Active | `toggle` | ⬜ |
+
+---
+
+### Form 27: 👑 Amenity Master
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Amenity Name | `text` unique | ✅ |
+| 2 | Category | 🔽 Recreation / Fitness / Sports / ... / Religious | ✅ |
+| 3 | Icon Name | `text` | ⬜ |
+| 4 | Is Premium | `toggle` | ⬜ |
+
+---
+
+### Form 28: 👑 Tag Master
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Tag Name | `text` unique | ✅ |
+| 2 | Tag Group | 🔽 Feature / Lifestyle / Investment / Location / Custom | ✅ |
+
+---
+
+### Form 29: 👑 Reply to Contact Message
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Response | `rich-text` | ✅ |
+
+---
+
+### Form 30: 👑 Review/Testimonial Moderation
+
+| # | Field | Type | Req |
+|---|-------|------|-----|
+| 1 | Decision | 🔽 Approve / Reject / Flag | ✅ |
+| 2 | Is Featured | `toggle` | ⬜ |
+
+---
+
+## 📊 Summary
+
+| Category | Forms | Key Forms |
+|----------|-------|-----------|
+| 🏠 Public | 7 | Registration, Inquiry, Contact |
+| 🔒 User | 8 | **Property Request (5-step + ROI)**, Post-Approval Completion, Review |
+| 👑 Admin | 15 | **Add Property (8-step wizard)**, Request Review, Lead Mgmt, Blog |
+| **Total** | **30** | |
+
+> [!TIP]
+> **Form 13** (Property Request) has **43 fields across 5 steps** with compulsory ROI.
+> **Form 14** (Post-Approval Completion) has **63 fields across 8 sections** — everything needed to list.
+> **Form 16** (Admin Add Property) has **80+ fields across 8 steps** — the most comprehensive form.

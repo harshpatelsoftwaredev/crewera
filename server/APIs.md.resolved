@@ -1,0 +1,429 @@
+# 🚀 Crewera Reality — Complete Backend API Reference
+
+> **Total APIs: 120+** across 15 modules, covering Public, User, Agent & Admin roles.
+
+---
+
+## Conventions
+
+| Symbol | Meaning |
+|--------|---------|
+| 🟢 | `GET` |
+| 🟡 | `POST` |
+| 🔵 | `PUT` / `PATCH` |
+| 🔴 | `DELETE` |
+| 🔒 | Auth Required |
+| 👑 | Admin Only |
+| 🏠 | Public (No Auth) |
+
+---
+
+## Module 1: Authentication & Account (10 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 1 | 🟡 | `POST /api/auth/register` | Register new user |
+| 2 | 🟡 | `POST /api/auth/login` | Login (returns JWT) |
+| 3 | 🟡 | `POST /api/auth/logout` | Logout & invalidate token |
+| 4 | 🟡 | `POST /api/auth/refresh-token` | Refresh JWT token |
+| 5 | 🟡 | `POST /api/auth/forgot-password` | Send password reset email |
+| 6 | 🟡 | `POST /api/auth/reset-password` | Reset password with token |
+| 7 | 🟡 | `POST /api/auth/verify-email` | Verify email with token |
+| 8 | 🟡 | `POST /api/auth/resend-verification` | Resend verification email |
+| 9 | 🟡 | `POST /api/auth/change-password` | 🔒 Change current password |
+| 10 | 🟢 | `GET /api/auth/me` | 🔒 Get current logged-in user |
+
+---
+
+## Module 2: User Profile & Preferences (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 11 | 🟢 | `GET /api/users/profile` | 🔒 Get own profile |
+| 12 | 🔵 | `PUT /api/users/profile` | 🔒 Update own profile |
+| 13 | 🟡 | `POST /api/users/profile/avatar` | 🔒 Upload profile picture |
+| 14 | 🟢 | `GET /api/users/preferences` | 🔒 Get notification/privacy settings |
+| 15 | 🔵 | `PUT /api/users/preferences` | 🔒 Update preferences |
+| 16 | 🟢 | `GET /api/users/:id/public` | 🏠 View public user profile |
+| 17 | 🟢 | `GET /api/users/login-history` | 🔒 Get own login history |
+| 18 | 🔴 | `DELETE /api/users/account` | 🔒 Deactivate own account |
+
+---
+
+## Module 3: Properties — Public (12 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 19 | 🟢 | `GET /api/properties` | 🏠 List all active properties (paginated, filtered) |
+| 20 | 🟢 | `GET /api/properties/:slug` | 🏠 Get single property (full detail) |
+| 21 | 🟢 | `GET /api/properties/featured` | 🏠 Get featured/premium properties |
+| 22 | 🟢 | `GET /api/properties/trending` | 🏠 Get trending properties (by analytics score) |
+| 23 | 🟢 | `GET /api/properties/nearby` | 🏠 Get nearby properties (lat/lng + radius) |
+| 24 | 🟢 | `GET /api/properties/search` | 🏠 Advanced search (city, type, BHK, price range, stage) |
+| 25 | 🟢 | `GET /api/properties/:id/pricing` | 🏠 Get all unit pricing for a property |
+| 26 | 🟢 | `GET /api/properties/:id/amenities` | 🏠 Get amenities list |
+| 27 | 🟢 | `GET /api/properties/:id/media` | 🏠 Get all photos/videos/floorplans |
+| 28 | 🟢 | `GET /api/properties/:id/specifications` | 🏠 Get unit specs |
+| 29 | 🟢 | `GET /api/properties/:id/contacts` | 🏠 Get sales/developer contacts |
+| 30 | 🟢 | `GET /api/properties/:id/milestones` | 🏠 Get construction milestones timeline |
+
+---
+
+## Module 4: Property Reviews (6 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 31 | 🟢 | `GET /api/properties/:id/reviews` | 🏠 Get all approved reviews for a property |
+| 32 | 🟡 | `POST /api/properties/:id/reviews` | 🔒 Submit a review |
+| 33 | 🔵 | `PUT /api/reviews/:id` | 🔒 Update own review |
+| 34 | 🔴 | `DELETE /api/reviews/:id` | 🔒 Delete own review |
+| 35 | 🟡 | `POST /api/reviews/:id/helpful` | 🔒 Mark review as helpful |
+| 36 | 🟡 | `POST /api/reviews/:id/report` | 🔒 Report a review |
+
+---
+
+## Module 5: Favorites & Comparisons (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 37 | 🟢 | `GET /api/favorites` | 🔒 Get user's favorites list |
+| 38 | 🟡 | `POST /api/favorites/:propertyId` | 🔒 Add to favorites |
+| 39 | 🔴 | `DELETE /api/favorites/:propertyId` | 🔒 Remove from favorites |
+| 40 | 🟢 | `GET /api/favorites/check/:propertyId` | 🔒 Check if property is favorited |
+| 41 | 🟢 | `GET /api/comparisons` | 🔒 Get all saved comparisons |
+| 42 | 🟡 | `POST /api/comparisons` | 🔒 Create a comparison list |
+| 43 | 🔵 | `PUT /api/comparisons/:id` | 🔒 Update comparison list |
+| 44 | 🔴 | `DELETE /api/comparisons/:id` | 🔒 Delete comparison |
+
+---
+
+## Module 6: Inquiries & Leads (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 45 | 🟡 | `POST /api/inquiries` | 🏠 Submit property inquiry |
+| 46 | 🟢 | `GET /api/inquiries` | 🔒 Get own inquiries |
+| 47 | 🟢 | `GET /api/inquiries/:id` | 🔒 Get inquiry detail + response |
+| 48 | 🟡 | `POST /api/properties/:id/callback` | 🏠 Request callback |
+| 49 | 🟡 | `POST /api/properties/:id/site-visit` | 🔒 Schedule site visit |
+| 50 | 🟡 | `POST /api/contact` | 🏠 Submit contact form message |
+| 51 | 🟡 | `POST /api/properties/:id/share` | 🏠 Track property share (increment) |
+| 52 | 🟡 | `POST /api/properties/:id/brochure` | 🏠 Download brochure (track) |
+
+---
+
+## Module 7: Property Requests & Completion Workflow (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 53 | 🟡 | `POST /api/property-requests` | 🔒 Submit listing request (ROI compulsory) |
+| 54 | 🟢 | `GET /api/property-requests` | 🔒 Get own submitted requests + status |
+| 55 | 🟢 | `GET /api/property-requests/:id` | 🔒 Get request detail (inc. ROI, financials) |
+| 56 | 🔵 | `PUT /api/property-requests/:id` | 🔒 Update a pending request |
+| 57 | 🟢 | `GET /api/property-requests/:id/completion` | 🔒 Get completion form (after approval) |
+| 58 | 🟡 | `POST /api/property-requests/:id/completion` | 🔒 Submit full property details (post-approval) |
+| 59 | 🔵 | `PUT /api/property-requests/:id/completion` | 🔒 Update completion (save draft) |
+| 60 | 🟡 | `POST /api/property-requests/:id/completion/submit` | 🔒 Final submit for admin listing |
+
+---
+
+## Module 8: Saved Searches & Alerts (5 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 61 | 🟢 | `GET /api/saved-searches` | 🔒 Get all saved searches |
+| 62 | 🟡 | `POST /api/saved-searches` | 🔒 Save a search with criteria |
+| 63 | 🔵 | `PUT /api/saved-searches/:id` | 🔒 Update search / toggle alerts |
+| 64 | 🔴 | `DELETE /api/saved-searches/:id` | 🔒 Delete saved search |
+| 65 | 🟢 | `GET /api/saved-searches/:id/results` | 🔒 Run saved search & get matches |
+
+---
+
+## Module 9: Blog & Content — Public (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 62 | 🟢 | `GET /api/blog/posts` | 🏠 List published posts (paginated) |
+| 63 | 🟢 | `GET /api/blog/posts/:slug` | 🏠 Get single blog post |
+| 64 | 🟢 | `GET /api/blog/posts/featured` | 🏠 Get featured posts |
+| 65 | 🟢 | `GET /api/blog/categories` | 🏠 Get all blog categories |
+| 66 | 🟢 | `GET /api/blog/categories/:slug/posts` | 🏠 Get posts by category |
+| 67 | 🟢 | `GET /api/blog/posts/:id/comments` | 🏠 Get approved comments |
+| 68 | 🟡 | `POST /api/blog/posts/:id/comments` | 🏠 Submit a comment |
+| 69 | 🟡 | `POST /api/blog/posts/:id/like` | 🔒 Like a blog post |
+
+---
+
+## Module 10: Testimonials & FAQs — Public (5 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 70 | 🟢 | `GET /api/testimonials` | 🏠 Get approved testimonials |
+| 71 | 🟡 | `POST /api/testimonials` | 🔒 Submit a testimonial |
+| 72 | 🟢 | `GET /api/faqs` | 🏠 Get all active FAQs |
+| 73 | 🟢 | `GET /api/faqs/:category` | 🏠 Get FAQs by category |
+| 74 | 🟡 | `POST /api/faqs/:id/feedback` | 🏠 Mark FAQ helpful / not helpful |
+
+---
+
+## Module 11: Notifications (5 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 75 | 🟢 | `GET /api/notifications` | 🔒 Get own notifications (paginated) |
+| 76 | 🟢 | `GET /api/notifications/unread-count` | 🔒 Get unread count |
+| 77 | 🔵 | `PATCH /api/notifications/:id/read` | 🔒 Mark single as read |
+| 78 | 🔵 | `PATCH /api/notifications/read-all` | 🔒 Mark all as read |
+| 79 | 🔴 | `DELETE /api/notifications/:id` | 🔒 Delete a notification |
+
+---
+
+## Module 12: Price History & Analytics — Public (4 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 80 | 🟢 | `GET /api/properties/:id/price-history` | 🏠 Get price change timeline |
+| 81 | 🟢 | `GET /api/properties/:id/analytics` | 🏠 Get view/inquiry/favorite counts |
+| 82 | 🟢 | `GET /api/analytics/market-trends` | 🏠 City-wise avg price, supply data |
+| 83 | 🟢 | `GET /api/analytics/top-cities` | 🏠 Top cities by demand/supply |
+
+---
+
+## Module 13: Tags & Discovery (3 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 84 | 🟢 | `GET /api/tags` | 🏠 Get all tags grouped by type |
+| 85 | 🟢 | `GET /api/tags/:tagName/properties` | 🏠 Get properties by tag |
+| 86 | 🟢 | `GET /api/properties/autocomplete` | 🏠 Search suggestions (names, cities) |
+
+---
+
+## Module 14: 👑 Admin — User Management (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 87 | 🟢 | `GET /api/admin/users` | 👑 List all users (filter, sort, paginate) |
+| 88 | 🟢 | `GET /api/admin/users/:id` | 👑 Get user detail + profile + preferences |
+| 89 | 🔵 | `PUT /api/admin/users/:id` | 👑 Update user (role, status) |
+| 90 | 🔵 | `PATCH /api/admin/users/:id/activate` | 👑 Activate/deactivate user |
+| 91 | 🔵 | `PATCH /api/admin/users/:id/role` | 👑 Change user role |
+| 92 | 🔴 | `DELETE /api/admin/users/:id` | 👑 Delete user |
+| 93 | 🟢 | `GET /api/admin/users/:id/activity` | 👑 Get user activity/audit trail |
+| 94 | 🟢 | `GET /api/admin/users/stats` | 👑 User stats (active, new, by role) |
+
+---
+
+## Module 15: 👑 Admin — Property Management (14 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 95 | 🟢 | `GET /api/admin/properties` | 👑 List ALL properties (inc. pending/inactive) |
+| 96 | 🟡 | `POST /api/admin/properties` | 👑 Create new property |
+| 97 | 🔵 | `PUT /api/admin/properties/:id` | 👑 Update property core info |
+| 98 | 🔴 | `DELETE /api/admin/properties/:id` | 👑 Delete property |
+| 99 | 🔵 | `PATCH /api/admin/properties/:id/status` | 👑 Approve / reject / archive property |
+| 100 | 🔵 | `PUT /api/admin/properties/:id/details` | 👑 Update property details |
+| 101 | 🔵 | `PUT /api/admin/properties/:id/construction` | 👑 Update construction stage & % |
+| 102 | 🔵 | `PUT /api/admin/properties/:id/location` | 👑 Update location info |
+| 103 | 🔵 | `PUT /api/admin/properties/:id/legal` | 👑 Update RERA & legal info |
+| 104 | 🔵 | `PUT /api/admin/properties/:id/building-specs` | 👑 Update building specs |
+| 105 | 🔵 | `PUT /api/admin/properties/:id/utilities` | 👑 Update utilities info |
+| 106 | 🟡🔴 | `POST/DELETE /api/admin/properties/:id/amenities` | 👑 Add/remove amenities |
+| 107 | 🟡🔴 | `POST/DELETE /api/admin/properties/:id/tags` | 👑 Add/remove property tags |
+| 108 | 🟡🔴 | `POST/DELETE /api/admin/properties/:id/contacts` | 👑 Add/remove contacts |
+
+---
+
+## Module 16: 👑 Admin — Pricing & Units (6 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 109 | 🟢 | `GET /api/admin/properties/:id/pricing` | 👑 Get all pricing variants |
+| 110 | 🟡 | `POST /api/admin/properties/:id/pricing` | 👑 Add new pricing variant |
+| 111 | 🔵 | `PUT /api/admin/pricing/:id` | 👑 Update pricing (auto-logs to price_history) |
+| 112 | 🔴 | `DELETE /api/admin/pricing/:id` | 👑 Delete pricing variant |
+| 113 | 🟡 | `POST /api/admin/properties/:id/specifications` | 👑 Add unit specification |
+| 114 | 🔵 | `PUT /api/admin/specifications/:id` | 👑 Update unit specification |
+
+---
+
+## Module 17: 👑 Admin — Media Management (4 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 115 | 🟡 | `POST /api/admin/properties/:id/media` | 👑 Upload media (photo/video/doc) |
+| 116 | 🔵 | `PUT /api/admin/media/:id` | 👑 Update media order/details |
+| 117 | 🔴 | `DELETE /api/admin/media/:id` | 👑 Delete media file |
+| 118 | 🔵 | `PATCH /api/admin/media/:id/primary` | 👑 Set as primary image |
+
+---
+
+## Module 18: 👑 Admin — Milestones (4 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 119 | 🟡 | `POST /api/admin/properties/:id/milestones` | 👑 Add milestone |
+| 120 | 🔵 | `PUT /api/admin/milestones/:id` | 👑 Update milestone progress |
+| 121 | 🔴 | `DELETE /api/admin/milestones/:id` | 👑 Delete milestone |
+| 122 | 🔵 | `PATCH /api/admin/milestones/:id/complete` | 👑 Mark milestone completed |
+
+---
+
+## Module 19: 👑 Admin — Leads & Inquiries (10 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 123 | 🟢 | `GET /api/admin/leads` | 👑 List all leads (filter by status, type, assigned) |
+| 124 | 🟢 | `GET /api/admin/leads/:id` | 👑 Get lead detail |
+| 125 | 🔵 | `PATCH /api/admin/leads/:id/status` | 👑 Update lead status |
+| 126 | 🔵 | `PATCH /api/admin/leads/:id/assign` | 👑 Assign lead to agent |
+| 127 | 🔵 | `PATCH /api/admin/leads/:id/follow-up` | 👑 Set next follow-up date |
+| 128 | 🟢 | `GET /api/admin/leads/stats` | 👑 Lead pipeline stats |
+| 129 | 🟢 | `GET /api/admin/inquiries` | 👑 List all inquiries |
+| 130 | 🔵 | `PATCH /api/admin/inquiries/:id/reply` | 👑 Reply to inquiry |
+| 131 | 🔵 | `PATCH /api/admin/inquiries/:id/status` | 👑 Update inquiry status |
+| 132 | 🟢 | `GET /api/admin/inquiries/stats` | 👑 Inquiry stats by status |
+
+---
+
+## Module 20: 👑 Admin — Property Requests & ROI Review (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 133 | 🟢 | `GET /api/admin/property-requests` | 👑 List all requests (filter by status, ROI range) |
+| 134 | 🟢 | `GET /api/admin/property-requests/:id` | 👑 Get full request + ROI + financials |
+| 135 | 🔵 | `PATCH /api/admin/property-requests/:id/review` | 👑 Mark as Under Review + add notes |
+| 136 | 🔵 | `PATCH /api/admin/property-requests/:id/approve` | 👑 Approve (triggers user completion form) |
+| 137 | 🔵 | `PATCH /api/admin/property-requests/:id/reject` | 👑 Reject with reason |
+| 138 | 🟢 | `GET /api/admin/property-requests/:id/completion` | 👑 View user's completion submission |
+| 139 | 🔵 | `PATCH /api/admin/property-requests/:id/verify-completion` | 👑 Verify completion & create listing |
+| 140 | 🟢 | `GET /api/admin/property-requests/stats` | 👑 Stats by status, avg ROI, conversion rate |
+
+---
+
+## Module 21: 👑 Admin — Blog & Content (8 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 137 | 🟢 | `GET /api/admin/blog/posts` | 👑 List all posts (inc. drafts) |
+| 138 | 🟡 | `POST /api/admin/blog/posts` | 👑 Create new blog post |
+| 139 | 🔵 | `PUT /api/admin/blog/posts/:id` | 👑 Update blog post |
+| 140 | 🔴 | `DELETE /api/admin/blog/posts/:id` | 👑 Delete blog post |
+| 141 | 🔵 | `PATCH /api/admin/blog/posts/:id/publish` | 👑 Publish / unpublish |
+| 142 | 🔵 | `PATCH /api/admin/blog/comments/:id/approve` | 👑 Approve comment |
+| 143 | 🔴 | `DELETE /api/admin/blog/comments/:id` | 👑 Delete comment |
+| 144 | 🟡🔵🔴 | `POST/PUT/DELETE /api/admin/blog/categories` | 👑 CRUD blog categories |
+
+---
+
+## Module 22: 👑 Admin — Reviews & Testimonials (6 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 145 | 🟢 | `GET /api/admin/reviews` | 👑 List all reviews (pending/approved/flagged) |
+| 146 | 🔵 | `PATCH /api/admin/reviews/:id/approve` | 👑 Approve/reject review |
+| 147 | 🔴 | `DELETE /api/admin/reviews/:id` | 👑 Delete review |
+| 148 | 🟢 | `GET /api/admin/testimonials` | 👑 List all testimonials |
+| 149 | 🔵 | `PATCH /api/admin/testimonials/:id/approve` | 👑 Approve/reject/feature testimonial |
+| 150 | 🔴 | `DELETE /api/admin/testimonials/:id` | 👑 Delete testimonial |
+
+---
+
+## Module 23: 👑 Admin — FAQs & Contact (6 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 151 | 🟡 | `POST /api/admin/faqs` | 👑 Create FAQ |
+| 152 | 🔵 | `PUT /api/admin/faqs/:id` | 👑 Update FAQ |
+| 153 | 🔴 | `DELETE /api/admin/faqs/:id` | 👑 Delete FAQ |
+| 154 | 🟢 | `GET /api/admin/contact-messages` | 👑 List all contact messages |
+| 155 | 🔵 | `PATCH /api/admin/contact-messages/:id/reply` | 👑 Reply to contact message |
+| 156 | 🔵 | `PATCH /api/admin/contact-messages/:id/read` | 👑 Mark as read |
+
+---
+
+## Module 24: 👑 Admin — Notifications (4 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 157 | 🟡 | `POST /api/admin/notifications/send` | 👑 Send notification to user(s) |
+| 158 | 🟡 | `POST /api/admin/notifications/broadcast` | 👑 Broadcast to all / role-based |
+| 159 | 🟢 | `GET /api/admin/notification-templates` | 👑 List notification templates |
+| 160 | 🟡🔵🔴 | `POST/PUT/DELETE /api/admin/notification-templates` | 👑 CRUD templates |
+
+---
+
+## Module 25: 👑 Admin — Amenity & Tag Masters (4 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 161 | 🟡 | `POST /api/admin/amenities` | 👑 Add to amenity catalog |
+| 162 | 🔵 | `PUT /api/admin/amenities/:id` | 👑 Update amenity |
+| 163 | 🟡 | `POST /api/admin/tags` | 👑 Create new tag |
+| 164 | 🔵🔴 | `PUT/DELETE /api/admin/tags/:id` | 👑 Update/delete tag |
+
+---
+
+## Module 26: 👑 Admin — Dashboard & Analytics (12 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 165 | 🟢 | `GET /api/admin/dashboard/overview` | 👑 Key KPIs (users, properties, leads, revenue) |
+| 166 | 🟢 | `GET /api/admin/dashboard/property-stats` | 👑 Properties by status, type, city |
+| 167 | 🟢 | `GET /api/admin/dashboard/lead-pipeline` | 👑 Lead funnel visualization data |
+| 168 | 🟢 | `GET /api/admin/dashboard/inquiry-stats` | 👑 Inquiries by status & time period |
+| 169 | 🟢 | `GET /api/admin/dashboard/revenue-analytics` | 👑 Revenue by project, BHK, city |
+| 170 | 🟢 | `GET /api/admin/dashboard/user-growth` | 👑 User registrations over time |
+| 171 | 🟢 | `GET /api/admin/dashboard/top-properties` | 👑 Top properties by views/inquiries/favorites |
+| 172 | 🟢 | `GET /api/admin/dashboard/city-heatmap` | 👑 City-wise demand heatmap data |
+| 173 | 🟢 | `GET /api/admin/dashboard/recent-activity` | 👑 Recent platform-wide activity |
+| 174 | 🟢 | `GET /api/admin/analytics/property/:id` | 👑 Deep analytics for single property |
+| 175 | 🟢 | `GET /api/admin/analytics/agent-performance` | 👑 Agent-wise lead conversion stats |
+| 176 | 🟡 | `POST /api/admin/reports/generate` | 👑 Generate PDF/Excel report |
+
+---
+
+## Module 27: 👑 Admin — Audit & Security (5 APIs)
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| 177 | 🟢 | `GET /api/admin/audit-logs` | 👑 Browse all audit logs (filtered) |
+| 178 | 🟢 | `GET /api/admin/audit-activity` | 👑 Browse activity logs |
+| 179 | 🟢 | `GET /api/admin/login-history` | 👑 All users login history |
+| 180 | 🟢 | `GET /api/admin/security/failed-logins` | 👑 Failed login attempts |
+| 181 | 🟢 | `GET /api/admin/security/suspicious` | 👑 Suspicious activity (Critical severity) |
+
+---
+
+## 📊 Summary by Role
+
+| Role | API Count | Description |
+|------|-----------|-------------|
+| 🏠 Public | ~30 | Properties, Blog, FAQs, Testimonials, Contact |
+| 🔒 Authenticated User | ~35 | Profile, Favorites, Reviews, Inquiries, Notifications |
+| 👑 Admin/Agent | ~115+ | Full CRUD, Dashboard, Analytics, Audit, Moderation |
+| **Total** | **181** | |
+
+---
+
+## 🔍 Key Query Parameters (Reusable)
+
+```
+# Pagination
+?page=1&limit=20
+
+# Sorting
+?sort=created_at&order=desc
+
+# Property Filters
+?city=Ahmedabad&type=Residential&bhk=3BHK
+?price_min=5000000&price_max=15000000
+?stage=Under+Construction&status=Active
+
+# Date Ranges
+?from=2024-01-01&to=2024-12-31
+
+# Search
+?q=search+term
+```

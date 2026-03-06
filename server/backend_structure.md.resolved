@@ -1,0 +1,507 @@
+# 🏗️ Crewera Reality — Backend File Structure
+
+> **Node.js + Express + MySQL (Sequelize)** · All 22 Modules · 190+ APIs
+
+---
+
+## 📁 Root Structure
+
+```
+D:\CREWERA\backend\
+├── 📄 package.json
+├── 📄 .env
+├── 📄 .env.example
+├── 📄 .gitignore
+├── 📄 .eslintrc.js
+├── 📄 .prettierrc
+├── 📄 server.js                          ← Entry point
+├── 📄 app.js                             ← Express app setup
+│
+├── 📁 config/                            ← All configuration
+├── 📁 database/                          ← SQL & migrations
+├── 📁 src/
+│   ├── 📁 models/                        ← Sequelize models (22)
+│   ├── 📁 controllers/                   ← Route handlers (18)
+│   ├── 📁 routes/                        ← Express routers (18)
+│   ├── 📁 middlewares/                   ← Auth, error, upload (6)
+│   ├── 📁 services/                      ← Business logic (10)
+│   ├── 📁 validators/                    ← Joi schemas (15)
+│   ├── 📁 utils/                         ← Helpers & utilities (8)
+│   └── 📁 jobs/                          ← Cron & background jobs (4)
+│
+├── 📁 uploads/                           ← File upload storage
+├── 📁 logs/                              ← Application logs
+├── 📁 tests/                             ← Test suites
+└── 📁 docs/                              ← API documentation
+```
+
+---
+
+## 📁 config/
+
+```
+config/
+├── 📄 database.js                 # MySQL/Sequelize connection config
+├── 📄 app.js                      # App-level settings (port, cors, rate limit)
+├── 📄 auth.js                     # JWT secret, token expiry, bcrypt rounds
+├── 📄 mail.js                     # SMTP / email service config
+├── 📄 upload.js                   # Multer config (file size, allowed types, paths)
+├── 📄 cloudinary.js               # Cloud storage config (optional)
+├── 📄 constants.js                # App-wide enums, defaults, status codes
+└── 📄 logger.js                   # Winston logger configuration
+```
+
+---
+
+## 📁 database/
+
+```
+database/
+├── 📄 DATABASE_v2_schema.sql      # Full schema (35+ tables)
+├── 📄 DATABASE_v2_seed_part1.sql  # Seed data part 1
+├── 📄 DATABASE_v2_seed_part2.sql  # Seed data part 2
+├── 📁 migrations/                 # Sequelize migrations (version control)
+│   ├── 📄 001_create_users.js
+│   ├── 📄 002_create_user_profiles.js
+│   ├── 📄 003_create_user_preferences.js
+│   ├── 📄 004_create_properties.js
+│   ├── 📄 005_create_property_details.js
+│   ├── 📄 006_create_property_construction.js
+│   ├── 📄 007_create_property_locations.js
+│   ├── 📄 008_create_property_legal.js
+│   ├── 📄 009_create_property_building_specs.js
+│   ├── 📄 010_create_property_utilities.js
+│   ├── 📄 011_create_amenity_master.js
+│   ├── 📄 012_create_property_amenities.js
+│   ├── 📄 013_create_property_pricing.js
+│   ├── 📄 014_create_unit_specifications.js
+│   ├── 📄 015_create_property_contacts.js
+│   ├── 📄 016_create_media_categories.js
+│   ├── 📄 017_create_property_media.js
+│   ├── 📄 018_create_property_analytics.js
+│   ├── 📄 019_create_property_view_logs.js
+│   ├── 📄 020_create_property_milestones.js
+│   ├── 📄 021_create_property_reviews.js
+│   ├── 📄 022_create_property_leads.js
+│   ├── 📄 023_create_inquiries.js
+│   ├── 📄 024_create_property_requests.js
+│   ├── 📄 025_create_favorites.js
+│   ├── 📄 026_create_property_comparisons.js
+│   ├── 📄 027_create_blog_categories.js
+│   ├── 📄 028_create_blog_posts.js
+│   ├── 📄 029_create_blog_comments.js
+│   ├── 📄 030_create_testimonials.js
+│   ├── 📄 031_create_faqs.js
+│   ├── 📄 032_create_contact_messages.js
+│   ├── 📄 033_create_notifications.js
+│   ├── 📄 034_create_notification_templates.js
+│   ├── 📄 035_create_audit_logs.js
+│   ├── 📄 036_create_audit_activity.js
+│   ├── 📄 037_create_login_history.js
+│   ├── 📄 038_create_property_price_history.js
+│   ├── 📄 039_create_tags.js
+│   ├── 📄 040_create_property_tags.js
+│   └── 📄 041_create_saved_searches.js
+└── 📁 seeders/                    # Sequelize seeders
+    ├── 📄 001_seed_users.js
+    ├── 📄 002_seed_properties.js
+    ├── 📄 003_seed_amenity_master.js
+    ├── 📄 004_seed_media_categories.js
+    ├── 📄 005_seed_blog_categories.js
+    ├── 📄 006_seed_tags.js
+    └── 📄 007_seed_faqs.js
+```
+
+---
+
+## 📁 src/models/
+
+```
+src/models/
+├── 📄 index.js                        # Sequelize init + model associations
+
+│── ── MODULE 1: Users ─────────────────
+├── 📄 User.js                         # Auth: email, password, role, tokens
+├── 📄 UserProfile.js                  # Personal info, bio, address
+├── 📄 UserPreference.js               # Notifications, privacy, display prefs
+
+│── ── MODULE 2: Property Core ─────────
+├── 📄 Property.js                     # Core identity: name, type, status, slug
+├── 📄 PropertyDetail.js               # Builder, description, units, towers
+├── 📄 PropertyConstruction.js         # Stage, %, dates, inspection
+
+│── ── MODULE 3–6: Property Extended ───
+├── 📄 PropertyLocation.js             # Address, city, lat/lng, landmarks
+├── 📄 PropertyLegal.js                # RERA, compliance, certificates
+├── 📄 PropertyBuildingSpec.js          # Storeys, lifts, parking, structure
+├── 📄 PropertyUtility.js              # Electric, gas, water, maintenance
+
+│── ── MODULE 7: Amenities ─────────────
+├── 📄 AmenityMaster.js                # Amenity catalog
+├── 📄 PropertyAmenity.js              # Property ↔ Amenity mapping
+
+│── ── MODULE 8: Pricing & Units ───────
+├── 📄 PropertyPricing.js              # BHK types, price, ROI, revenue
+├── 📄 UnitSpecification.js            # Dimensions, facing, features
+
+│── ── MODULE 9–10: Contacts & Media ───
+├── 📄 PropertyContact.js              # Sales head, developer contacts
+├── 📄 MediaCategory.js                # Photo, Video, Floorplan categories
+├── 📄 PropertyMedia.js                # Uploaded files, thumbnails
+
+│── ── MODULE 11–12: Analytics ─────────
+├── 📄 PropertyAnalytics.js            # Aggregated view/inquiry/share counts
+├── 📄 PropertyViewLog.js              # Individual page view records
+├── 📄 PropertyMilestone.js            # Construction progress tracking
+
+│── ── MODULE 13: Reviews ──────────────
+├── 📄 PropertyReview.js               # Ratings, review text, moderation
+
+│── ── MODULE 14: Leads & Inquiries ────
+├── 📄 PropertyLead.js                 # Sales pipeline, scoring, follow-up
+├── 📄 Inquiry.js                      # Property/general inquiries
+
+│── ── MODULE 15: Property Requests ────
+├── 📄 PropertyRequest.js              # User listing requests (ROI, financials)
+
+│── ── MODULE 16: Favorites ────────────
+├── 📄 Favorite.js                     # User ↔ Property favorites
+├── 📄 PropertyComparison.js           # Compare lists (JSON property_ids)
+
+│── ── MODULE 17: Blog ─────────────────
+├── 📄 BlogCategory.js                 # Category catalog
+├── 📄 BlogPost.js                     # Posts, slug, SEO, scheduling
+├── 📄 BlogComment.js                  # Threaded comments
+
+│── ── MODULE 18: Testimonials & FAQs ──
+├── 📄 Testimonial.js                  # User testimonials
+├── 📄 Faq.js                          # FAQ entries with categories
+
+│── ── MODULE 19: Communication ────────
+├── 📄 ContactMessage.js               # Contact form submissions
+├── 📄 Notification.js                 # In-app notifications
+├── 📄 NotificationTemplate.js         # Reusable email/SMS/push templates
+
+│── ── MODULE 20: Audit & Security ─────
+├── 📄 AuditLog.js                     # Action audit trail (CRUD, login)
+├── 📄 AuditActivity.js                # Behavioral analytics
+├── 📄 LoginHistory.js                 # Login/logout session records
+
+│── ── MODULE 21–22: Price & Tags ──────
+├── 📄 PropertyPriceHistory.js         # Price change tracking over time
+├── 📄 Tag.js                          # Tag catalog
+├── 📄 PropertyTag.js                  # Property ↔ Tag mapping
+└── 📄 SavedSearch.js                  # User saved searches + alerts
+```
+
+---
+
+## 📁 src/controllers/
+
+```
+src/controllers/
+├── 📄 auth.controller.js              # Register, login, logout, reset, verify
+├── 📄 user.controller.js              # Profile CRUD, preferences, login history
+├── 📄 property.controller.js          # Public: list, search, detail, nearby, trending
+├── 📄 propertyAdmin.controller.js     # Admin: full CRUD, all sub-tables, status mgmt
+├── 📄 pricing.controller.js           # Admin: pricing variants, unit specs CRUD
+├── 📄 media.controller.js             # Admin: upload, reorder, delete, set primary
+├── 📄 amenity.controller.js           # Admin: amenity master CRUD + property mapping
+├── 📄 milestone.controller.js         # Admin: construction milestones CRUD
+├── 📄 review.controller.js            # Submit, moderate, helpful, report
+├── 📄 lead.controller.js              # Admin: leads pipeline, assign, follow-up
+├── 📄 inquiry.controller.js           # Submit, reply, admin list, stats
+├── 📄 propertyRequest.controller.js   # Submit, complete, admin review (ROI)
+├── 📄 favorite.controller.js          # Add, remove, check, comparisons
+├── 📄 blog.controller.js              # Posts CRUD, categories, comments, admin
+├── 📄 content.controller.js           # Testimonials, FAQs, contact messages
+├── 📄 notification.controller.js      # User notifications + admin broadcast
+├── 📄 analytics.controller.js         # Property analytics, market trends, dashboard
+├── 📄 audit.controller.js             # Admin: audit logs, activity, security
+├── 📄 tag.controller.js               # Admin: tags CRUD + property tag mapping
+└── 📄 search.controller.js            # Saved searches, autocomplete, alerts
+```
+
+---
+
+## 📁 src/routes/
+
+```
+src/routes/
+├── 📄 index.js                        # Master router ─ mounts all sub-routes
+
+│── ── Public Routes ───────────────────
+├── 📄 auth.routes.js                  # /api/auth/*
+├── 📄 property.routes.js              # /api/properties/*  (public endpoints)
+├── 📄 blog.routes.js                  # /api/blog/*
+├── 📄 content.routes.js               # /api/testimonials, /api/faqs, /api/contact
+
+│── ── Authenticated User Routes ───────
+├── 📄 user.routes.js                  # /api/users/*
+├── 📄 favorite.routes.js              # /api/favorites/*, /api/comparisons/*
+├── 📄 review.routes.js                # /api/reviews/*
+├── 📄 inquiry.routes.js               # /api/inquiries/*
+├── 📄 propertyRequest.routes.js       # /api/property-requests/*
+├── 📄 notification.routes.js          # /api/notifications/*
+├── 📄 search.routes.js                # /api/saved-searches/*
+
+│── ── Admin Routes ────────────────────
+├── 📄 admin.user.routes.js            # /api/admin/users/*
+├── 📄 admin.property.routes.js        # /api/admin/properties/* (full CRUD)
+├── 📄 admin.lead.routes.js            # /api/admin/leads/*, /api/admin/inquiries/*
+├── 📄 admin.request.routes.js         # /api/admin/property-requests/* (ROI review)
+├── 📄 admin.blog.routes.js            # /api/admin/blog/*
+├── 📄 admin.content.routes.js         # /api/admin/faqs, testimonials, contact msgs
+├── 📄 admin.notification.routes.js    # /api/admin/notifications/*
+├── 📄 admin.analytics.routes.js       # /api/admin/dashboard/*, analytics, reports
+└── 📄 admin.audit.routes.js           # /api/admin/audit-logs/*, security/*
+```
+
+---
+
+## 📁 src/middlewares/
+
+```
+src/middlewares/
+├── 📄 auth.middleware.js              # JWT verification, extract user
+├── 📄 role.middleware.js              # Role-based access (admin, agent, user, builder)
+├── 📄 validate.middleware.js          # Joi validation runner (req.body/query/params)
+├── 📄 upload.middleware.js            # Multer file upload (photo, video, document)
+├── 📄 rateLimiter.middleware.js       # Rate limiting per IP/user
+├── 📄 error.middleware.js             # Global error handler (structured JSON errors)
+├── 📄 audit.middleware.js             # Auto-log actions to audit_logs
+└── 📄 cors.middleware.js              # CORS configuration
+```
+
+---
+
+## 📁 src/validators/
+
+```
+src/validators/
+├── 📄 auth.validator.js               # Register, login, reset password schemas
+├── 📄 user.validator.js               # Profile update, preferences schemas
+├── 📄 property.validator.js           # Property create/update (all 8 steps)
+├── 📄 pricing.validator.js            # Pricing variant, unit spec schemas
+├── 📄 location.validator.js           # Location with lat/lng validation
+├── 📄 legal.validator.js              # RERA, legal compliance schemas
+├── 📄 buildingSpec.validator.js       # Building specs, utilities schemas
+├── 📄 review.validator.js             # Review submit (ratings 1-5, text)
+├── 📄 lead.validator.js               # Lead create, status update, assign schemas
+├── 📄 inquiry.validator.js            # Inquiry submit, reply schemas
+├── 📄 propertyRequest.validator.js    # Request submit (ROI required), completion form
+├── 📄 blog.validator.js               # Post create/update, comment, category schemas
+├── 📄 content.validator.js            # Testimonial, FAQ, contact message schemas
+├── 📄 notification.validator.js       # Send notification, template schemas
+└── 📄 search.validator.js             # Saved search criteria, params
+```
+
+---
+
+## 📁 src/services/
+
+```
+src/services/
+├── 📄 auth.service.js                 # JWT sign/verify, password hash/compare
+├── 📄 email.service.js                # Send emails (verification, reset, notifications)
+├── 📄 sms.service.js                  # Send SMS (OTP, alerts)
+├── 📄 upload.service.js               # File processing, thumbnail gen, cloud upload
+├── 📄 analytics.service.js            # Compute trending, aggregate stats, reports
+├── 📄 notification.service.js         # Template rendering, broadcast, push
+├── 📄 property.service.js             # Complex property queries, filters, search
+├── 📄 lead.service.js                 # Lead scoring, pipeline calculations
+├── 📄 audit.service.js                # Structured audit logging helper
+├── 📄 report.service.js               # PDF/Excel report generation
+└── 📄 slug.service.js                 # URL slug generation & uniqueness check
+```
+
+---
+
+## 📁 src/utils/
+
+```
+src/utils/
+├── 📄 ApiResponse.js                  # Standardized success response class
+├── 📄 ApiError.js                     # Custom error class with status codes
+├── 📄 catchAsync.js                   # Async error wrapper for controllers
+├── 📄 pagination.js                   # Pagination helper (page, limit, offset)
+├── 📄 filterBuilder.js                # Dynamic WHERE clause builder from query params
+├── 📄 sanitize.js                     # Input sanitization (XSS, SQL injection)
+├── 📄 dateUtils.js                    # Date formatting, IST conversion
+└── 📄 constants.js                    # Status enums, role enums, defaults
+```
+
+---
+
+## 📁 src/jobs/
+
+```
+src/jobs/
+├── 📄 index.js                        # Job scheduler setup (node-cron)
+├── 📄 priceAlertJob.js                # Check saved searches & send price alerts
+├── 📄 analyticsAggregator.js          # Daily aggregate view/inquiry counts
+├── 📄 notificationCleanup.js          # Delete expired notifications
+└── 📄 leadFollowupReminder.js         # Remind agents of upcoming follow-ups
+```
+
+---
+
+## 📁 uploads/
+
+```
+uploads/
+├── 📁 properties/                     # Property media organized by ID
+│   ├── 📁 photos/
+│   ├── 📁 videos/
+│   ├── 📁 floorplans/
+│   ├── 📁 documents/
+│   └── 📁 renders/
+├── 📁 avatars/                        # User profile pictures
+├── 📁 blog/                           # Blog featured images
+├── 📁 testimonials/                   # Testimonial user images
+└── 📁 temp/                           # Temporary upload buffer
+```
+
+---
+
+## 📁 tests/
+
+```
+tests/
+├── 📁 unit/
+│   ├── 📄 auth.test.js
+│   ├── 📄 property.test.js
+│   ├── 📄 pricing.test.js
+│   ├── 📄 lead.test.js
+│   └── 📄 propertyRequest.test.js
+├── 📁 integration/
+│   ├── 📄 auth.integration.test.js
+│   ├── 📄 property.integration.test.js
+│   ├── 📄 propertyRequest.integration.test.js
+│   └── 📄 admin.integration.test.js
+├── 📁 fixtures/
+│   ├── 📄 users.fixture.js
+│   ├── 📄 properties.fixture.js
+│   └── 📄 leads.fixture.js
+└── 📄 setup.js                        # Test DB setup/teardown
+```
+
+---
+
+## 📁 docs/
+
+```
+docs/
+├── 📄 API_REFERENCE.md                # Full API documentation
+├── 📄 FORM_STRUCTURES.md              # All form structures
+├── 📄 DATABASE_SCHEMA.md              # ER diagram & table descriptions
+├── 📄 DEPLOYMENT.md                   # Deployment guide
+└── 📄 POSTMAN_COLLECTION.json         # Postman import file
+```
+
+---
+
+## 📁 Root Files
+
+### `server.js`
+```js
+// Imports app, connects DB, starts server on process.env.PORT
+```
+
+### `app.js`
+```js
+// Express setup: cors, helmet, morgan, rate-limiter, body-parser
+// Mount routes: /api/auth, /api/properties, /api/admin/*, etc.
+// Global error handler middleware
+```
+
+### `.env.example`
+```env
+# Server
+PORT=5000
+NODE_ENV=development
+
+# Database
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=crewera_reality
+DB_USER=root
+DB_PASSWORD=
+
+# JWT
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=7d
+JWT_REFRESH_EXPIRES_IN=30d
+
+# Email
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email
+SMTP_PASS=your_app_password
+EMAIL_FROM=noreply@crewera.com
+
+# Upload
+MAX_FILE_SIZE=10485760
+UPLOAD_PATH=./uploads
+
+# Cloudinary (optional)
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+# Frontend
+CLIENT_URL=http://localhost:3000
+```
+
+### `package.json` (key dependencies)
+```json
+{
+  "dependencies": {
+    "express": "^4.18",
+    "sequelize": "^6.35",
+    "mysql2": "^3.6",
+    "jsonwebtoken": "^9.0",
+    "bcryptjs": "^2.4",
+    "joi": "^17.11",
+    "multer": "^1.4",
+    "nodemailer": "^6.9",
+    "winston": "^3.11",
+    "node-cron": "^3.0",
+    "cors": "^2.8",
+    "helmet": "^7.1",
+    "express-rate-limit": "^7.1",
+    "morgan": "^1.10",
+    "slugify": "^1.6",
+    "dotenv": "^16.3",
+    "pdfkit": "^0.14",
+    "exceljs": "^4.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7",
+    "supertest": "^6.3",
+    "eslint": "^8.53",
+    "prettier": "^3.1",
+    "nodemon": "^3.0"
+  }
+}
+```
+
+---
+
+## 📊 File Count Summary
+
+| Folder | Files | Purpose |
+|--------|-------|---------|
+| config | 8 | All configuration |
+| models | 38 | Sequelize model definitions |
+| controllers | 20 | Request handlers |
+| routes | 21 | Express route definitions |
+| middlewares | 8 | Auth, validation, upload, audit |
+| validators | 15 | Joi validation schemas |
+| services | 11 | Business logic layer |
+| utils | 8 | Helper functions |
+| jobs | 5 | Background/cron tasks |
+| migrations | 41 | Database migrations |
+| seeders | 7 | Seed data scripts |
+| tests | 13 | Unit + integration tests |
+| **Total** | **~195** | |
