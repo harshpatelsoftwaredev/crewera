@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables ────────────────────────────────────────────────────────── */
+:root {
+  --navy-950: #060d1a;
+  --navy-900: #0A1628;
+  --navy-800: #0e2242;
+  --navy-700: #163263;
+  --gold-500: #C9A255;
+  --gold-400: #e0b03b;
+  --cream-50: #FDFCFA;
+  --cream-100: #F9F7F2;
+  --cream-200: #F2EFE8;
+  --border: #E4E1DB;
+  --text-primary: #0A1628;
+  --text-secondary: #5A5F6E;
+  --text-muted: #9CA3AF;
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  background-color: var(--cream-50);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* ─── Typography Utilities ─────────────────────────────────────────────────── */
+.font-display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* ─── Scrollbar Styles ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D1CDC5;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B0ABA0;
+}
+
+/* ─── Components ───────────────────────────────────────────────────────────── */
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-navy-900 text-white text-sm font-medium tracking-wide transition-all duration-200 hover:bg-navy-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white text-navy-900 text-sm font-medium border border-[var(--border)] transition-all duration-200 hover:bg-cream-100 active:scale-[0.98];
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gold-500 text-white text-sm font-semibold tracking-wide transition-all duration-200 hover:bg-gold-600 active:scale-[0.98];
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-2xl border border-[var(--border)] shadow-card;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+
+  /* Input */
+  .input-base {
+    @apply w-full rounded-lg border border-[var(--border)] bg-white px-3.5 py-2.5 text-sm text-navy-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-navy-900/10 focus:border-navy-400 transition-all duration-150;
+  }
+
+  /* Badges */
+  .badge-sale {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100;
+  }
+  
+  .badge-rent {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100;
+  }
+
+  .badge-featured {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100;
+  }
+
+  /* Section divider */
+  .divider {
+    @apply h-px bg-[var(--border)];
+  }
+}
+
+/* ─── Map Styles ───────────────────────────────────────────────────────────── */
+.map-price-pin {
+  background: var(--navy-900);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(10, 22, 40, 0.3);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.map-price-pin:hover,
+.map-price-pin.active {
+  background: var(--gold-500);
+  transform: scale(1.1);
+  border-color: white;
+  z-index: 10;
+}
+
+.map-price-pin::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--navy-900);
+}
+
+.map-price-pin.active::after {
+  border-top-color: var(--gold-500);
+}
+
+/* ─── Animations ───────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream-200);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* ─── Scrollable panels ────────────────────────────────────────────────────── */
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Range slider ─────────────────────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--border);
+  height: 4px;
+  border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--navy-900);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(10,22,40,0.3);
+  margin-top: -6px;
+  transition: background 0.2s;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--gold-500);
+}
+
+/* ─── Property card image hover ────────────────────────────────────────────── */
+.property-img-wrap {
+  overflow: hidden;
+}
+.property-img-wrap img {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.property-img-wrap:hover img {
+  transform: scale(1.06);
+}
+
+/* ─── Google Maps overrides ────────────────────────────────────────────────── */
+.gm-style-iw-d {
+  overflow: hidden !important;
+}
+.gm-style-iw {
+  padding: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+.gm-style-iw-c {
+  padding: 0 !important;
+  border-radius: 16px !important;
+}
+.gm-style .gm-style-iw-tc::after {
+  background: white;
+}
+.gm-ui-hover-effect {
+  top: 4px !important;
+  right: 4px !important;
+}
